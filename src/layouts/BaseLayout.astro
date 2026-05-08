@@ -1,0 +1,235 @@
+---
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: 'en' | 'es';
+  alternatePath: string;
+}
+
+const {
+  title,
+  description,
+  lang,
+  alternatePath
+} = Astro.props;
+
+const canonicalURL = Astro.url.href;
+
+const isSpanish = lang === 'es';
+
+const siteName = 'PUR & PIR Insulation';
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+
+    <meta
+      name="description"
+      content={description}
+    />
+
+    <meta
+      name="robots"
+      content="index, follow"
+    />
+
+    <link
+      rel="canonical"
+      href={canonicalURL}
+    />
+
+    <!-- hreflang -->
+    <link
+      rel="alternate"
+      hreflang={isSpanish ? 'en' : 'es'}
+      href={new URL(alternatePath, Astro.site)}
+    />
+
+    <link
+      rel="alternate"
+      hreflang={lang}
+      href={canonicalURL}
+    />
+
+    <!-- Open Graph -->
+    <meta
+      property="og:type"
+      content="website"
+    />
+
+    <meta
+      property="og:title"
+      content={title}
+    />
+
+    <meta
+      property="og:description"
+      content={description}
+    />
+
+    <meta
+      property="og:url"
+      content={canonicalURL}
+    />
+
+    <meta
+      property="og:site_name"
+      content={siteName}
+    />
+
+    <!-- Twitter -->
+    <meta
+      name="twitter:card"
+      content="summary_large_image"
+    />
+
+    <meta
+      name="twitter:title"
+      content={title}
+    />
+
+    <meta
+      name="twitter:description"
+      content={description}
+    />
+
+    <!-- Fonts -->
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <ClientRouter />
+
+    <title>{title}</title>
+  </head>
+
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    /* Colors */
+    --color-primary: #2563eb;
+    --color-primary-dark: #1d4ed8;
+
+    --color-bg: #f8fafc;
+    --color-bg-dark: #0f172a;
+
+    --color-surface: #ffffff;
+    --color-surface-dark: #1e293b;
+
+    --color-text: #0f172a;
+    --color-text-light: #475569;
+
+    --color-border: #e2e8f0;
+
+    --color-white: #ffffff;
+
+    /* Typography */
+    --font-main: 'Inter', sans-serif;
+
+    /* Container */
+    --container-width: 1280px;
+
+    /* Radius */
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+    --shadow-md:
+      0 4px 6px rgba(0, 0, 0, 0.07);
+
+    --shadow-lg:
+      0 10px 15px rgba(0, 0, 0, 0.1);
+
+    /* Transition */
+    --transition:
+      200ms ease;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+
+    font-family: var(--font-main);
+
+    background: var(--color-bg);
+
+    color: var(--color-text);
+
+    line-height: 1.5;
+
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button,
+  input,
+  textarea {
+    font: inherit;
+  }
+
+  .container {
+    width: min(
+      calc(100% - 2rem),
+      var(--container-width)
+    );
+
+    margin-inline: auto;
+  }
+
+  .section {
+    padding-block: 5rem;
+  }
+
+  @media (width >= 768px) {
+    .section {
+      padding-block: 7rem;
+    }
+  }
+</style>

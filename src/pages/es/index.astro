@@ -1,23 +1,22 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
-import Navbar from '../components/layout/Navbar.astro';
-import Hero from '../components/sections/Hero.astro';
+import Navbar from '../../components/layout/Navbar.astro';
 
 import {
   useTranslations,
   getAlternatePath
-} from '../i18n/utils';
+} from '../../i18n/utils';
 
-const lang = 'en';
+const lang = 'es';
 
 const t = useTranslations(lang);
 
 const title =
-  'PUR & PIR Insulation | Professional Sandwich Panels';
+  'PUR & PIR Insulation | Paneles Sándwich Industriales';
 
 const description =
-  'Technical insulation solutions for industrial sandwich panels.';
+  'Soluciones de aislamiento térmico para paneles industriales.';
 
 const alternatePath = getAlternatePath(
   Astro.url,
@@ -37,7 +36,22 @@ const alternatePath = getAlternatePath(
   />
 
   <main>
-    <Hero t={t} />
+    <section class="hero-preview">
+      <div class="container">
+        <span class="hero-preview__badge">
+          Astro Configurado
+        </span>
+
+        <h1>
+          PUR & PIR Insulation
+        </h1>
+
+        <p>
+          Sitio técnico industrial
+          funcionando correctamente.
+        </p>
+      </div>
+    </section>
   </main>
 </BaseLayout>
 

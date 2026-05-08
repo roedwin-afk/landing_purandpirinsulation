@@ -1,0 +1,213 @@
+---
+import { getAlternatePath } from "../../i18n/utils";
+import NavLinks from "../ui/NavLinks.astro";
+import MobileMenu from "./MobileMenu.astro";
+
+import type { TranslationKeys } from "../../i18n/en";
+
+interface Props {
+    t: TranslationKeys;
+    lang: "en" | "es";
+}
+
+const { t, lang } = Astro.props;
+
+const baseUrl = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const switchPath = lang === "es" ? `${baseUrl}/es` : baseUrl;
+
+const alternatePath = getAlternatePath(Astro.url, baseUrl);
+
+const switchLabel = lang === "es" ? "EN" : "ES";
+---
+
+<header class="navbar">
+    <div class="container navbar__inner">
+        <!-- Logo -->
+        <a href={baseUrl} class="navbar__logo">
+            <div class="navbar__logo-icon">I</div>
+
+            <span>
+                Pur&Pir
+                <span>Insulation</span>
+            </span>
+        </a>
+
+        <!-- Desktop -->
+        <div class="navbar__desktop">
+            <NavLinks t={t} lang={lang} variant="navbar" />
+            <a href={alternatePath} class="navbar__lang">
+                {switchLabel}
+            </a>
+
+            <a href={`${baseUrl}/#quote`} class="navbar__cta">
+                {t.nav.getQuote}
+            </a>
+        </div>
+
+        <!-- Mobile -->
+        <div class="navbar__mobile">
+            <a href={alternatePath} class="navbar__lang navbar__lang--mobile">
+                {switchLabel}
+            </a>
+
+            <MobileMenu t={t} lang={lang} />
+        </div>
+    </div>
+</header>
+
+<style>
+    .navbar {
+        position: sticky;
+        top: 0;
+
+        z-index: 1000;
+
+        background: rgba(255, 255, 255, 0.9);
+
+        backdrop-filter: blur(12px);
+
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .navbar__inner {
+        height: 5rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 2rem;
+    }
+
+    .navbar__logo {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+
+        font-weight: 800;
+        font-size: 1.1rem;
+
+        color: var(--color-text);
+
+        flex-shrink: 0;
+    }
+
+    .navbar__logo-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+
+        display: grid;
+        place-items: center;
+
+        border-radius: var(--radius-sm);
+
+        background: var(--color-primary);
+
+        color: var(--color-white);
+    }
+
+    .navbar__logo span span {
+        color: var(--color-primary);
+    }
+
+    .navbar__desktop {
+        display: none;
+    }
+
+    .navbar__cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        min-height: 2.75rem;
+
+        padding-inline: 1.25rem;
+
+        border-radius: var(--radius-md);
+
+        background: var(--color-primary);
+
+        color: var(--color-white);
+
+        font-size: 0.95rem;
+        font-weight: 600;
+
+        transition:
+            background var(--transition),
+            transform var(--transition);
+    }
+
+    .navbar__cta:hover {
+        background: var(--color-primary-dark);
+
+        transform: translateY(-2px);
+    }
+    .navbar__lang {
+        font-size: 0.9rem;
+        font-weight: 700;
+
+        color: var(--color-text-light);
+
+        transition: color var(--transition);
+    }
+
+    .navbar__lang:hover {
+        color: var(--color-primary);
+    }
+
+    .navbar__mobile {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    
+
+    @media (width >= 768px) {
+        .navbar__desktop {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            flex: 1;
+
+            min-width: 0;
+
+            gap: 1.25rem;
+        }
+
+        .navbar__desktop :global(.nav-links) {
+            gap: 1.5rem;
+
+            flex: 1;
+
+            justify-content: center;
+        }
+
+        .navbar__desktop :global(.nav-links a) {
+            font-size: 0.92rem;
+
+            line-height: 1.35;
+        }
+
+        .navbar__cta {
+            flex-shrink: 0;
+
+            min-height: 2.5rem;
+
+            padding-inline: 1rem;
+
+            font-size: 0.9rem;
+
+            text-align: center;
+        }
+
+        .navbar__lang {
+            flex-shrink: 0;
+        }
+        .navbar__lang--mobile {
+            display: none;
+        }
+    }
+</style>
