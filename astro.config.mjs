@@ -8,7 +8,7 @@ const BASE = process.env.BASE || "/landing_purandpirinsulation/";
 export default defineConfig({
   site: SITE,
   base: BASE,
-  // output: "static",
+  output: "static",
   integrations: [sitemap(),
   blogKit({
     postsPerPage: 6,
