@@ -1,4 +1,5 @@
 ---
+import { X, Globe } from "lucide-astro";
 import NavLinks from "../ui/NavLinks.astro";
 import type { TranslationKeys } from "../../i18n/en";
 import type { Lang } from "../../i18n/utils";
@@ -15,17 +16,14 @@ const alternatePath = lang === "en" ? `${base}es/` : `${base}`;
 const prefix = lang === "es" ? `${base}es/` : `${base}`;
 ---
 
-<!-- Overlay -->
 <div class="mobile-overlay" id="mobile-overlay" aria-hidden="true"></div>
 
-<!-- Drawer -->
 <nav
   class="mobile-menu"
   id="mobile-menu"
   aria-label="Mobile navigation"
   aria-hidden="true"
 >
-  <!-- Header -->
   <div class="mobile-menu__header">
     <a href={prefix} class="mobile-menu__logo">
       <div class="mobile-menu__logo-icon">I</div>
@@ -33,54 +31,21 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
         Pur&Pir<span class="mobile-menu__logo-accent">Insulation</span>
       </span>
     </a>
-    <button
-      class="mobile-menu__close"
-      id="menu-close"
-      aria-label="Close menu"
-    >
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
-      </svg>
+    <button class="mobile-menu__close" id="menu-close" aria-label="Close menu">
+      <X size={20} />
     </button>
   </div>
 
-  <!-- Links -->
   <div class="mobile-menu__body">
     <NavLinks t={t} lang={lang} orientation="vertical" />
   </div>
 
-  <!-- Footer -->
   <div class="mobile-menu__footer">
     <a href={`${prefix}#quote`} class="mobile-menu__cta">
       {t.nav.getQuote}
     </a>
     <a href={alternatePath} class="mobile-menu__lang">
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <circle cx="12" cy="12" r="10"></circle>
-        <line x1="2" y1="12" x2="22" y2="12"></line>
-        <path
-          d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
-        ></path>
-      </svg>
+      <Globe size={16} />
       {alternateLang.toUpperCase()} — {lang === "en" ? "Español" : "English"}
     </a>
   </div>
@@ -115,24 +80,20 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
     close.addEventListener("click", closeMenu);
     overlay.addEventListener("click", closeMenu);
 
-    // Close on nav link click
     menu.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", closeMenu);
     });
 
-    // Close on Escape key
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeMenu();
     });
   }
 
-  // Run on first load and after view transitions
   initMobileMenu();
   document.addEventListener("astro:page-load", initMobileMenu);
 </script>
 
 <style>
-  /* Overlay */
   .mobile-overlay {
     display: none;
     position: fixed;
@@ -148,7 +109,6 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
     opacity: 1;
   }
 
-  /* Drawer */
   .mobile-menu {
     position: fixed;
     top: 0;
@@ -168,7 +128,6 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
     transform: translateX(0);
   }
 
-  /* Header */
   .mobile-menu__header {
     display: flex;
     align-items: center;
@@ -227,14 +186,12 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
     color: var(--color-text);
   }
 
-  /* Body */
   .mobile-menu__body {
     flex: 1;
     overflow-y: auto;
     padding: var(--space-4) var(--space-3);
   }
 
-  /* Footer */
   .mobile-menu__footer {
     padding: var(--space-5);
     border-top: 1px solid var(--color-border);
@@ -280,7 +237,6 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
     background-color: var(--color-primary-muted);
   }
 
-  /* Hide on desktop */
   @media (min-width: 768px) {
     .mobile-menu,
     .mobile-overlay {

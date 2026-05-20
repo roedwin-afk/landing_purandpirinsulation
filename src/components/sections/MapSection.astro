@@ -1,0 +1,327 @@
+---
+import { MapPin, Phone, Mail, ExternalLink } from "lucide-astro";
+import type { TranslationKeys } from "../../i18n/en";
+import type { Lang } from "../../i18n/utils";
+
+interface Props {
+  t: TranslationKeys;
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const contact = {
+  email: "info@panelforcoldroom.com",
+  phone: "+52 55 9990 3546",
+  phoneHref: "tel:+525599903546",
+  address: "Avenida Presidente Masaryk No. 61, Int. 901, Polanco V Sección, C.P. 11560, Miguel Hidalgo, Mexico City, Mexico",
+  mapsUrl: "https://maps.google.com/?cid=15759084979067732314",
+  lat: 19.4326,
+  lng: -99.1932,
+};
+---
+
+<section id="location" class="map-section">
+  <div class="container map-section__header reveal">
+    <h2 class="map-section__title">
+      {lang === "es" ? "Nuestra Ubicación" : "Our Location"}
+    </h2>
+    <p class="map-section__desc">
+      {lang === "es"
+        ? "Visítenos o contáctenos directamente para una consulta técnica personalizada."
+        : "Visit us or contact us directly for a personalized technical consultation."}
+    </p>
+  </div>
+
+  <div class="container map-section__inner">
+
+    <!-- Info cards -->
+    <div class="map-section__info reveal">
+
+      <a href={`mailto:${contact.email}`} class="info-card">
+        <div class="info-card__icon info-card__icon--blue">
+          <Mail size={20} />
+        </div>
+        <div>
+          <span class="info-card__label">Email</span>
+          <span class="info-card__value">{contact.email}</span>
+        </div>
+        <ExternalLink size={14} class="info-card__arrow" />
+      </a>
+
+      <a href={contact.phoneHref} class="info-card">
+        <div class="info-card__icon info-card__icon--green">
+          <Phone size={20} />
+        </div>
+        <div>
+          <span class="info-card__label">
+            {lang === "es" ? "Teléfono" : "Phone"}
+          </span>
+          <span class="info-card__value">{contact.phone}</span>
+        </div>
+        <ExternalLink size={14} class="info-card__arrow" />
+      </a>
+
+      <a href={contact.mapsUrl} target="_blank" rel="noopener" class="info-card">
+        <div class="info-card__icon info-card__icon--orange">
+          <MapPin size={20} />
+        </div>
+        <div>
+          <span class="info-card__label">
+            {lang === "es" ? "Dirección" : "Address"}
+          </span>
+          <span class="info-card__value">{contact.address}</span>
+        </div>
+        <ExternalLink size={14} class="info-card__arrow" />
+      </a>
+
+    </div>
+
+    <!-- Map -->
+    <div class="map-section__map reveal">
+      <div id="leaflet-map" class="leaflet-map"></div>
+      
+      <a  href={contact.mapsUrl}
+        target="_blank"
+        rel="noopener"
+        class="map-section__gmaps-btn"
+      >
+        <ExternalLink size={14} />
+        {lang === "es" ? "Abrir en Google Maps" : "Open in Google Maps"}
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- Leaflet CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+  crossorigin=""
+/>
+
+<!-- Leaflet CSS -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin=""
+/>
+
+<!-- Leaflet JS -->
+<script
+  is:inline
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin=""
+></script>
+
+<script is:inline>
+  function initMap() {
+    const mapEl = document.getElementById("leaflet-map");
+    if (!mapEl || mapEl._leaflet_id) return;
+
+    const lat = 19.4326;
+    const lng = -99.1932;
+
+    const map = L.map("leaflet-map", {
+      center: [lat, lng],
+      zoom: 16,
+      zoomControl: true,
+      scrollWheelZoom: false,
+    });
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 19,
+    }).addTo(map);
+
+    const icon = L.divIcon({
+      className: "",
+      html: `
+        <div style="
+          width: 2.5rem;
+          height: 2.5rem;
+          background-color: #2563eb;
+          border-radius: 50% 50% 50% 0;
+          transform: rotate(-45deg);
+          border: 3px solid white;
+          box-shadow: 0 4px 12px rgb(0 0 0 / 0.3);
+        "></div>
+      `,
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+      popupAnchor: [0, -40],
+    });
+
+    L.marker([lat, lng], { icon })
+      .addTo(map)
+      .bindPopup(`
+        <strong style="font-family: Inter, sans-serif; font-size: 0.85rem;">
+          PUR&PIR Insulation
+        </strong><br/>
+        <span style="font-size: 0.75rem; color: #475569;">
+          Polanco, Mexico City
+        </span>
+      `)
+      .openPopup();
+  }
+
+  document.addEventListener("DOMContentLoaded", initMap);
+  document.addEventListener("astro:page-load", initMap);
+</script>
+
+<style>
+  .map-section {
+    padding-block: var(--space-20);
+    background-color: var(--color-surface-alt);
+  }
+
+  .map-section__header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+    max-width: 40rem;
+    margin-inline: auto;
+  }
+
+  .map-section__title {
+    font-size: clamp(var(--font-size-2xl), 4vw, var(--font-size-3xl));
+    font-weight: 700;
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-3);
+  }
+
+  .map-section__desc {
+    font-size: var(--font-size-base);
+    color: var(--color-text-light);
+    line-height: 1.7;
+  }
+
+  .map-section__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 1024px) {
+    .map-section__inner {
+      grid-template-columns: 1fr 1.5fr;
+      align-items: start;
+    }
+  }
+
+  /* Info cards */
+  .map-section__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .info-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-5);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color var(--transition-base),
+      box-shadow var(--transition-base),
+      transform var(--transition-base);
+    cursor: pointer;
+  }
+
+  .info-card:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .info-card__icon {
+    flex-shrink: 0;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .info-card__icon--blue {
+    background-color: #dbeafe;
+    color: var(--color-primary);
+  }
+
+  .info-card__icon--green {
+    background-color: #dcfce7;
+    color: #16a34a;
+  }
+
+  .info-card__icon--orange {
+    background-color: #ffedd5;
+    color: var(--color-accent-orange);
+  }
+
+  .info-card__label {
+    display: block;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-1);
+  }
+
+  .info-card__value {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+
+  .info-card__arrow {
+    margin-left: auto;
+    flex-shrink: 0;
+    color: var(--color-text-muted);
+    margin-top: 2px;
+  }
+
+  /* Map */
+  .map-section__map {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .leaflet-map {
+    width: 100%;
+    height: 420px;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--color-border);
+    z-index: 0;
+  }
+
+  .map-section__gmaps-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    align-self: flex-end;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    transition: background-color var(--transition-base);
+  }
+
+  .map-section__gmaps-btn:hover {
+    background-color: var(--color-primary-muted);
+  }
+</style>

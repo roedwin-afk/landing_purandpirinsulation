@@ -1,0 +1,234 @@
+---
+import { Shield, Check, ArrowRight } from "lucide-astro";
+import type { TranslationKeys } from "../../i18n/en";
+import type { Lang } from "../../i18n/utils";
+
+interface Props {
+  t: TranslationKeys;
+  lang: Lang;
+}
+
+const { t, lang } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const prefix = lang === "es" ? `${base}es/` : `${base}`;
+---
+
+<section id="quote" class="cta">
+  <div class="container cta__inner">
+
+    <div class="cta__content reveal">
+      <div class="cta__eyebrow">
+        <Shield size={14} />
+        {lang === "es" ? "Ingeniería de confianza" : "Trusted Engineering"}
+      </div>
+      <h2 class="cta__title">{t.quote.sectionTitle}</h2>
+      <p class="cta__desc">{t.quote.description}</p>
+
+      <div class="cta__features">
+        <div class="cta__feature">
+          <span class="cta__feature-icon"><Check size={14} /></span>
+          {lang === "es" ? "Cálculos de transferencia de calor" : "Heat transfer calculations"}
+        </div>
+        <div class="cta__feature">
+          <span class="cta__feature-icon"><Check size={14} /></span>
+          {lang === "es" ? "Dossieres de seguridad contra incendios" : "Fire safety dossiers"}
+        </div>
+        <div class="cta__feature">
+          <span class="cta__feature-icon"><Check size={14} /></span>
+          {lang === "es" ? "Análisis de valor U para su proyecto" : "U-Value analysis for your project"}
+        </div>
+      </div>
+
+      <a href={`${prefix}contact/`} class="cta__btn">
+        {lang === "es" ? "Solicitar consulta técnica" : "Request Technical Consultation"}
+        <ArrowRight size={18} />
+      </a>
+    </div>
+
+    <div class="cta__cards reveal">
+      <div class="cta__card">
+        <span class="cta__card-value">24h</span>
+        <span class="cta__card-label">
+          {lang === "es" ? "Tiempo de respuesta" : "Response time"}
+        </span>
+      </div>
+      <div class="cta__card">
+        <span class="cta__card-value">+500</span>
+        <span class="cta__card-label">
+          {lang === "es" ? "Proyectos completados" : "Projects completed"}
+        </span>
+      </div>
+      <div class="cta__card">
+        <span class="cta__card-value">FM</span>
+        <span class="cta__card-label">Global Approved</span>
+      </div>
+      <div class="cta__card">
+        <span class="cta__card-value">EN</span>
+        <span class="cta__card-label">13501-1 Certified</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .cta {
+    padding-block: var(--space-20);
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .cta::after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 40rem;
+    height: 40rem;
+    background: radial-gradient(circle, rgb(37 99 235 / 0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+
+  @media (min-width: 1024px) {
+    .cta__inner {
+      grid-template-columns: 1.2fr 1fr;
+      align-items: center;
+    }
+  }
+
+  .cta__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #60a5fa;
+    margin-bottom: var(--space-4);
+  }
+
+  .cta__title {
+    font-size: clamp(var(--font-size-2xl), 4vw, var(--font-size-4xl));
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: var(--space-4);
+  }
+
+  .cta__desc {
+    font-size: var(--font-size-base);
+    color: #94a3b8;
+    line-height: 1.75;
+    margin-bottom: var(--space-8);
+  }
+
+  .cta__features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-bottom: var(--space-8);
+  }
+
+  .cta__feature {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--font-size-sm);
+    color: #cbd5e1;
+  }
+
+  .cta__feature-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: rgb(37 99 235 / 0.3);
+    border-radius: var(--radius-full);
+    color: #60a5fa;
+    flex-shrink: 0;
+  }
+
+  .cta__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    background-color: var(--color-primary);
+    color: white;
+    font-weight: 700;
+    font-size: var(--font-size-base);
+    padding: var(--space-4) var(--space-6);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all var(--transition-base);
+    box-shadow: 0 0 0 0 rgb(37 99 235 / 0.5);
+  }
+
+  .cta__btn:hover {
+    background-color: var(--color-primary-dark);
+    gap: var(--space-4);
+    box-shadow: 0 0 0 6px rgb(37 99 235 / 0.15);
+  }
+
+  .cta__cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  .cta__card {
+    background-color: rgb(255 255 255 / 0.05);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    text-align: center;
+    transition: background-color var(--transition-base),
+      border-color var(--transition-base);
+  }
+
+  .cta__card:hover {
+    background-color: rgb(255 255 255 / 0.08);
+    border-color: rgb(255 255 255 / 0.2);
+  }
+
+  .cta__card-value {
+    display: block;
+    font-size: var(--font-size-3xl);
+    font-weight: 800;
+    color: #60a5fa;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: var(--space-2);
+  }
+
+  .cta__card-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+</style>

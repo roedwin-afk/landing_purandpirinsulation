@@ -13,20 +13,8 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
 ---
 
 <section class="hero">
-  <!-- Grid pattern background -->
-  <div class="hero__pattern" aria-hidden="true">
-    <svg viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
-          <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5" />
-        </pattern>
-      </defs>
-      <rect width="100" height="100" fill="url(#grid)" />
-    </svg>
-  </div>
-
   <div class="container hero__inner">
-    <div class="hero__content">
+    <div class="hero__content hero__animate">
       <h1 class="hero__title">
         {t.hero.title}
         <span class="hero__title-accent">{t.hero.titleAccent}</span>
@@ -42,8 +30,7 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
       </div>
     </div>
 
-    <!-- Floating stats -->
-    <div class="hero__stats" aria-hidden="true">
+    <div class="hero__stats hero__animate hero__animate--delay" aria-hidden="true">
       <div class="hero__stat">
         <span class="hero__stat-value">0.020</span>
         <span class="hero__stat-label">W/m·K (PIR)</span>
@@ -63,26 +50,23 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
 <style>
   .hero {
     position: relative;
-    background: linear-gradient(135deg, var(--color-hero-bg-start) 0%, var(--color-hero-bg-end) 100%);
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
     color: white;
     padding-block: var(--space-24);
     overflow: hidden;
   }
 
-  /* Grid pattern */
-  .hero__pattern {
+  .hero::before {
+    content: "";
     position: absolute;
     inset: 0;
-    opacity: 0.07;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
     pointer-events: none;
   }
 
-  .hero__pattern svg {
-    width: 100%;
-    height: 100%;
-  }
-
-  /* Inner layout */
   .hero__inner {
     position: relative;
     z-index: 1;
@@ -99,7 +83,6 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
     }
   }
 
-  /* Content */
   .hero__content {
     max-width: 42rem;
   }
@@ -114,7 +97,7 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
 
   .hero__title-accent {
     display: block;
-    color: var(--color-primary-light);
+    color: #60a5fa;
   }
 
   .hero__description {
@@ -127,18 +110,28 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
   /* Actions */
   .hero__actions {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-4);
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 100%;
+  }
+
+  @media (min-width: 480px) {
+    .hero__actions {
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: auto;
+    }
   }
 
   .hero__btn {
     display: inline-block;
-    padding: 0.75rem 2rem;
+    padding: 0.75rem 1.5rem;
     border-radius: var(--radius-md);
     font-weight: 700;
     font-size: var(--font-size-sm);
     text-decoration: none;
     transition: all var(--transition-base);
+    text-align: center;
     white-space: nowrap;
   }
 
@@ -163,17 +156,19 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
 
   /* Stats */
   .hero__stats {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--space-4);
-    flex-wrap: wrap;
+    width: 100%;
   }
 
   @media (min-width: 1024px) {
     .hero__stats {
+      display: flex;
       flex-direction: column;
       align-items: flex-end;
-      gap: var(--space-6);
+      gap: var(--space-4);
+      width: auto;
       flex-shrink: 0;
     }
   }
@@ -182,17 +177,22 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
     background-color: rgb(255 255 255 / 0.07);
     border: 1px solid rgb(255 255 255 / 0.12);
     border-radius: var(--radius-xl);
-    padding: var(--space-4) var(--space-6);
+    padding: var(--space-4) var(--space-3);
     text-align: center;
-    backdrop-filter: blur(8px);
-    min-width: 7rem;
+  }
+
+  @media (min-width: 1024px) {
+    .hero__stat {
+      width: 12rem;
+      padding: var(--space-4) var(--space-6);
+    }
   }
 
   .hero__stat-value {
     display: block;
     font-size: var(--font-size-2xl);
     font-weight: 800;
-    color: var(--color-primary-light);
+    color: #60a5fa;
     letter-spacing: -0.02em;
     line-height: 1.2;
   }
@@ -204,5 +204,25 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
     margin-top: var(--space-1);
     text-transform: uppercase;
     letter-spacing: 0.05em;
+  }
+
+  /* Animación de entrada */
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero__animate {
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .hero__animate--delay {
+    animation-delay: 0.2s;
   }
 </style>

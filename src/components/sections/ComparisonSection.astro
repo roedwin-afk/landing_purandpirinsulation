@@ -1,0 +1,251 @@
+---
+import type { TranslationKeys } from "../../i18n/en";
+import type { Lang } from "../../i18n/utils";
+
+interface Props {
+  t: TranslationKeys;
+  lang: Lang;
+}
+
+const { t } = Astro.props;
+
+const cards = [
+  {
+    badge: t.comparison.pur.badge,
+    title: t.comparison.pur.title,
+    description: t.comparison.pur.description,
+    features: t.comparison.pur.features,
+    variant: "pur",
+  },
+  {
+    badge: t.comparison.pir.badge,
+    title: t.comparison.pir.title,
+    description: t.comparison.pir.description,
+    features: t.comparison.pir.features,
+    recommended: t.comparison.pir.recommended,
+    variant: "pir",
+  },
+  {
+    badge: t.comparison.mw.badge,
+    title: t.comparison.mw.title,
+    description: t.comparison.mw.description,
+    features: t.comparison.mw.features,
+    variant: "mw",
+  },
+];
+---
+
+<section id="comparative" class="comparison">
+  <div class="container">
+    <!-- Header -->
+    <div class="comparison__header reveal">
+      <h2 class="comparison__title">{t.comparison.sectionTitle}</h2>
+      <p class="comparison__desc">{t.comparison.sectionDesc}</p>
+    </div>
+
+    <!-- Cards -->
+    <div class="comparison__grid">
+      {
+        cards.map((card) => (
+          <article class:list={["card", `card--${card.variant}`, "reveal"]}>
+            {card.recommended && (
+              <div class="card__badge-recommended">{card.recommended}</div>
+            )}
+
+            <div class:list={["card__icon", `card__icon--${card.variant}`]}>
+              <span>{card.badge}</span>
+            </div>
+
+            <h3 class="card__title">{card.title}</h3>
+            <p class="card__desc">{card.description}</p>
+
+            <ul class="card__features">
+              {card.features.map((feature) => (
+                <li class="card__feature">
+                  <span class:list={["card__check", `card__check--${card.variant}`]}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="3"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </span>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .comparison {
+    padding-block: var(--space-20);
+    background-color: var(--color-bg);
+  }
+
+  /* Header */
+  .comparison__header {
+    text-align: center;
+    margin-bottom: var(--space-16);
+    max-width: 40rem;
+    margin-inline: auto;
+    margin-bottom: var(--space-16);
+  }
+
+  .comparison__title {
+    font-size: clamp(var(--font-size-2xl), 4vw, var(--font-size-3xl));
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+    letter-spacing: -0.02em;
+  }
+
+  .comparison__desc {
+    font-size: var(--font-size-base);
+    color: var(--color-text-light);
+    line-height: 1.7;
+  }
+
+  /* Grid */
+  .comparison__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .comparison__grid {
+      grid-template-columns: repeat(3, 1fr);
+      align-items: start;
+    }
+  }
+
+  /* Card base */
+  .card {
+    position: relative;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-8);
+    transition: box-shadow var(--transition-base);
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  /* PIR featured card */
+  .card--pir {
+    border: 2px solid var(--color-primary);
+    box-shadow: var(--shadow-md);
+    transform: scale(1.03);
+  }
+
+  .card--pir:hover {
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Recommended badge */
+  .card__badge-recommended {
+    position: absolute;
+    top: -0.85rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--color-primary);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.75rem;
+    border-radius: var(--radius-full);
+    white-space: nowrap;
+  }
+
+  /* Icon */
+  .card__icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-6);
+  }
+
+  .card__icon--pur {
+    background-color: #dbeafe;
+    color: var(--color-primary);
+  }
+
+  .card__icon--pir {
+    background-color: var(--color-primary);
+    color: white;
+  }
+
+  .card__icon--mw {
+    background-color: var(--color-accent-orange-light);
+    color: var(--color-accent-orange);
+  }
+
+  /* Text */
+  .card__title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--space-3);
+  }
+
+  .card__desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    line-height: 1.7;
+    margin-bottom: var(--space-6);
+  }
+
+  /* Features list */
+  .card__features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .card__feature {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+  }
+
+  /* Check icon */
+  .card__check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: var(--radius-full);
+    flex-shrink: 0;
+  }
+
+  .card__check--pur {
+    background-color: #dcfce7;
+    color: var(--color-success);
+  }
+
+  .card__check--pir {
+    background-color: #dbeafe;
+    color: var(--color-primary);
+  }
+
+  .card__check--mw {
+    background-color: #ffedd5;
+    color: var(--color-accent-orange);
+  }
+</style>

@@ -1,0 +1,279 @@
+---
+import { ShieldCheck, Award } from "lucide-astro";
+import type { TranslationKeys } from "../../i18n/en";
+import type { Lang } from "../../i18n/utils";
+
+interface Props {
+  t: TranslationKeys;
+  lang: Lang;
+}
+
+const { t } = Astro.props;
+---
+
+<section id="fire-safety" class="fire-safety">
+  <div class="container fire-safety__inner">
+
+    <div class="fire-safety__content reveal">
+      <h2 class="fire-safety__title">{t.fireSafety.sectionTitle}</h2>
+      <p class="fire-safety__desc">{t.fireSafety.description}</p>
+
+      <div class="fire-safety__certs">
+        <div class="cert reveal">
+          <div class="cert__icon cert__icon--red">
+            <ShieldCheck size={18} />
+          </div>
+          <div>
+            <h4 class="cert__title">{t.fireSafety.certifications.euroclass.title}</h4>
+            <p class="cert__desc">{t.fireSafety.certifications.euroclass.description}</p>
+          </div>
+        </div>
+
+        <div class="cert reveal">
+          <div class="cert__icon cert__icon--blue">
+            <Award size={18} />
+          </div>
+          <div>
+            <h4 class="cert__title">{t.fireSafety.certifications.fm.title}</h4>
+            <p class="cert__desc">{t.fireSafety.certifications.fm.description}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fire-safety__diagram reveal">
+      <div class="diagram">
+        <div class="diagram__header">
+          <span class="diagram__label">{t.fireSafety.diagramCaption}</span>
+        </div>
+
+        <div class="diagram__body">
+          <div class="diagram__row">
+            <span class="diagram__material">PIR</span>
+            <div class="diagram__bar-wrap">
+              <div class="diagram__bar diagram__bar--pir">
+                <span class="diagram__bar-label">Carbonization Layer</span>
+              </div>
+            </div>
+            <span class="diagram__rating diagram__rating--good">B-s1</span>
+          </div>
+
+          <div class="diagram__row">
+            <span class="diagram__material">PUR</span>
+            <div class="diagram__bar-wrap">
+              <div class="diagram__bar diagram__bar--pur">
+                <span class="diagram__bar-label">Rapid Melt</span>
+              </div>
+            </div>
+            <span class="diagram__rating diagram__rating--bad">C / D</span>
+          </div>
+
+          <div class="diagram__row">
+            <span class="diagram__material">MW</span>
+            <div class="diagram__bar-wrap">
+              <div class="diagram__bar diagram__bar--mw">
+                <span class="diagram__bar-label">Non-combustible</span>
+              </div>
+            </div>
+            <span class="diagram__rating diagram__rating--best">A1</span>
+          </div>
+        </div>
+
+        <p class="diagram__note">{t.fireSafety.diagramNote}</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .fire-safety {
+    padding-block: var(--space-20);
+    background-color: var(--color-surface);
+  }
+
+  .fire-safety__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+
+  @media (min-width: 1024px) {
+    .fire-safety__inner {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+    }
+  }
+
+  .fire-safety__title {
+    font-size: clamp(var(--font-size-2xl), 4vw, var(--font-size-3xl));
+    font-weight: 700;
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-4);
+  }
+
+  .fire-safety__desc {
+    font-size: var(--font-size-base);
+    color: var(--color-text-light);
+    line-height: 1.75;
+    margin-bottom: var(--space-8);
+  }
+
+  .fire-safety__desc strong {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .fire-safety__certs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .cert {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .cert__icon {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+
+  .cert__icon--red {
+    background-color: #fee2e2;
+    color: #dc2626;
+  }
+
+  .cert__icon--blue {
+    background-color: #dbeafe;
+    color: var(--color-primary);
+  }
+
+  .cert__title {
+    font-size: var(--font-size-base);
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--space-1);
+  }
+
+  .cert__desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    line-height: 1.6;
+  }
+
+  .fire-safety__diagram {
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+  }
+
+  .diagram {
+    background-color: #0f172a;
+    padding: var(--space-8);
+    border-radius: var(--radius-2xl);
+  }
+
+  .diagram__header {
+    margin-bottom: var(--space-8);
+  }
+
+  .diagram__label {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #64748b;
+  }
+
+  .diagram__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  .diagram__row {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr 3rem;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .diagram__material {
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    color: #94a3b8;
+    letter-spacing: 0.05em;
+  }
+
+  .diagram__bar-wrap {
+    height: 2.25rem;
+    background-color: rgb(255 255 255 / 0.05);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .diagram__bar {
+    height: 100%;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    padding-inline: var(--space-3);
+  }
+
+  .diagram__bar--pir {
+    width: 75%;
+    background: linear-gradient(90deg, #1d4ed8, #3b82f6);
+  }
+
+  .diagram__bar--pur {
+    width: 50%;
+    background: linear-gradient(90deg, #b45309, #f59e0b);
+  }
+
+  .diagram__bar--mw {
+    width: 95%;
+    background: linear-gradient(90deg, #065f46, #10b981);
+  }
+
+  .diagram__bar-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: white;
+    white-space: nowrap;
+    opacity: 0.9;
+    letter-spacing: 0.03em;
+  }
+
+  .diagram__rating {
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    text-align: right;
+    letter-spacing: 0.02em;
+  }
+
+  .diagram__rating--good { color: #60a5fa; }
+  .diagram__rating--bad  { color: #fbbf24; }
+  .diagram__rating--best { color: #34d399; }
+
+  .diagram__note {
+    font-size: 0.65rem;
+    color: #475569;
+    line-height: 1.5;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-top: 1px solid rgb(255 255 255 / 0.07);
+    padding-top: var(--space-4);
+  }
+</style>
