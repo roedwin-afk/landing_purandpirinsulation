@@ -1,111 +1,15 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Hero from "../../components/sections/Hero.astro";
+import { getLang, useTranslations } from "../../i18n/utils";
 
-import Navbar from '../../components/layout/Navbar.astro';
-
-import {
-  useTranslations,
-  getAlternatePath
-} from '../../i18n/utils';
-
-const lang = 'es';
-
+const base = import.meta.env.BASE_URL;
+const lang = getLang(Astro.url, base);
 const t = useTranslations(lang);
-
-const title =
-  'PUR & PIR Insulation | Paneles Sándwich Industriales';
-
-const description =
-  'Soluciones de aislamiento térmico para paneles industriales.';
-
-const alternatePath = getAlternatePath(
-  Astro.url,
-  Astro.site?.pathname || ''
-);
 ---
 
-<BaseLayout
-  title={title}
-  description={description}
-  lang={lang}
-  alternatePath={alternatePath}
->
-  <Navbar
-    t={t}
-    lang={lang}
-  />
-
+<BaseLayout t={t} lang={lang}>
   <main>
-    <section class="hero-preview">
-      <div class="container">
-        <span class="hero-preview__badge">
-          Astro Configurado
-        </span>
-
-        <h1>
-          PUR & PIR Insulation
-        </h1>
-
-        <p>
-          Sitio técnico industrial
-          funcionando correctamente.
-        </p>
-      </div>
-    </section>
+    <Hero t={t} lang={lang} />
   </main>
 </BaseLayout>
-
-<style>
-  .hero-preview {
-    padding-block: 8rem;
-
-    background:
-      linear-gradient(
-        135deg,
-        #1e293b 0%,
-        #0f172a 100%
-      );
-
-    color: white;
-  }
-
-  .hero-preview__badge {
-    display: inline-flex;
-
-    margin-bottom: 1rem;
-
-    padding:
-      0.5rem 0.75rem;
-
-    border-radius: 999px;
-
-    background:
-      rgba(255, 255, 255, 0.1);
-
-    font-size: 0.875rem;
-  }
-
-  h1 {
-    margin:
-      0 0 1rem;
-
-    font-size:
-      clamp(
-        2.5rem,
-        8vw,
-        5rem
-      );
-
-    line-height: 1;
-
-    max-width: 12ch;
-  }
-
-  p {
-    max-width: 60ch;
-
-    color: #cbd5e1;
-
-    font-size: 1.125rem;
-  }
-</style>
