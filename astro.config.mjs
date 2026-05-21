@@ -8,6 +8,15 @@ export default defineConfig({
   site: SITE,
   base: BASE,
   output: "static",
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      i18n: {
+        defaultLocale: "en",
+        locales: {
+          en: "en-US",
+          es: "es-MX",
+        },
+      },
+    }),
+  ],
 });
-
