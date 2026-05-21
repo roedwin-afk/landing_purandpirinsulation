@@ -1,5 +1,6 @@
 ---
 import Navbar from "../components/layout/Navbar.astro";
+import Footer from "../components/layout/Footer.astro";
 import ScrollReveal from "../components/ui/ScrollReveal.astro";
 import { ClientRouter } from "astro:transitions";
 import type { TranslationKeys } from "../i18n/en";
@@ -20,6 +21,8 @@ const alternatePath =
     : `${base}`;
 const siteUrl = Astro.site ?? new URL("https://roedwin-afk.github.io");
 const canonical = canonicalUrl ?? Astro.url.href;
+
+
 ---
 
 <!doctype html>
@@ -74,6 +77,7 @@ const canonical = canonicalUrl ?? Astro.url.href;
     <Navbar t={t} lang={lang} />
     <slot />
     <ScrollReveal />
+    <Footer t={t} lang={lang} />
   </body>
 </html>
 

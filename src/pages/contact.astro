@@ -1,0 +1,571 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { Mail, Phone, MapPin, Clock } from "lucide-astro";
+import { getLang, useTranslations } from "../i18n/utils";
+
+const base = import.meta.env.BASE_URL;
+const lang = getLang(Astro.url, base);
+const t = useTranslations(lang);
+
+const contact = {
+  email: "info@panelforcoldroom.com",
+  phone: "+52 55 9990 3546",
+  phoneHref: "tel:+525599903546",
+  address: "Avenida Presidente Masaryk No. 61, Int. 901, Polanco V Sección, C.P. 11560, Miguel Hidalgo, Mexico City, Mexico",
+  mapsUrl: "https://maps.google.com/?cid=15759084979067732314",
+};
+---
+
+<BaseLayout t={t} lang={lang}>
+
+  <main>
+    <!-- Page Header -->
+    <div class="contact-hero">
+      <div class="container contact-hero__inner">
+        <div class="contact-hero__eyebrow">
+          <Mail size={14} />
+          {lang === "es" ? "Estamos aquí para ayudarle" : "We are here to help"}
+        </div>
+        <h1 class="contact-hero__title">
+          {lang === "es" ? "Contacto" : "Contact Us"}
+        </h1>
+        <p class="contact-hero__desc">
+          {lang === "es"
+            ? "Solicite una consulta técnica, ficha de datos o análisis de valor U para su proyecto."
+            : "Request a technical consultation, data sheet, or U-Value analysis for your project."}
+        </p>
+      </div>
+    </div>
+
+    <!-- Contact Content -->
+    <section class="contact-section">
+      <div class="container contact-section__inner">
+
+        <!-- Left: Info + Map -->
+        <div class="contact-info">
+
+          <!-- Info cards -->
+          <div class="contact-cards">
+            <a href={`mailto:${contact.email}`} class="contact-card">
+              <div class="contact-card__icon contact-card__icon--blue">
+                <Mail size={20} />
+              </div>
+              <div class="contact-card__body">
+                <span class="contact-card__label">Email</span>
+                <span class="contact-card__value">{contact.email}</span>
+              </div>
+            </a>
+
+            <a href={contact.phoneHref} class="contact-card">
+              <div class="contact-card__icon contact-card__icon--green">
+                <Phone size={20} />
+              </div>
+              <div class="contact-card__body">
+                <span class="contact-card__label">
+                  {lang === "es" ? "Teléfono" : "Phone"}
+                </span>
+                <span class="contact-card__value">{contact.phone}</span>
+              </div>
+            </a>
+
+            <a href={contact.mapsUrl} target="_blank" rel="noopener" class="contact-card">
+              <div class="contact-card__icon contact-card__icon--orange">
+                <MapPin size={20} />
+              </div>
+              <div class="contact-card__body">
+                <span class="contact-card__label">
+                  {lang === "es" ? "Dirección" : "Address"}
+                </span>
+                <span class="contact-card__value">{contact.address}</span>
+              </div>
+            </a>
+
+            <div class="contact-card contact-card--static">
+              <div class="contact-card__icon contact-card__icon--purple">
+                <Clock size={20} />
+              </div>
+              <div class="contact-card__body">
+                <span class="contact-card__label">
+                  {lang === "es" ? "Horario" : "Business Hours"}
+                </span>
+                <span class="contact-card__value">
+                  {lang === "es"
+                    ? "Lun–Vie: 9:00 – 18:00 (GMT-6)"
+                    : "Mon–Fri: 9:00 AM – 6:00 PM (GMT-6)"}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Map -->
+          <div class="contact-map">
+            <div id="contact-map" class="contact-map__canvas"></div>
+            
+            <a  href={contact.mapsUrl}
+              target="_blank"
+              rel="noopener"
+              class="contact-map__link"
+            >
+              {lang === "es" ? "Abrir en Google Maps →" : "Open in Google Maps →"}
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Right: Zoho Form -->
+        <div class="contact-form-wrap">
+          <div class="contact-form-header">
+            <h2 class="contact-form-title">
+              {lang === "es" ? "Solicitud de Cotización" : "Request a Quote"}
+            </h2>
+            <p class="contact-form-desc">
+              {lang === "es"
+                ? "Complete el formulario y nuestro equipo técnico le responderá en menos de 24 horas."
+                : "Fill out the form and our technical team will respond within 24 hours."}
+            </p>
+          </div>
+
+          <form
+            action="https://forms.zohopublic.com/promaica/form/SolicituddeCotizacin/formperma/0G7mUvm1mHqTMr77oTQpng90acA6JYYKZtboiNDls70/htmlRecords/submit"
+            name="form"
+            id="zoho-form"
+            method="POST"
+            accept-charset="UTF-8"
+            enctype="multipart/form-data"
+            class="zoho-form"
+          >
+            <input type="hidden" name="zf_referrer_name" value="" />
+            <input type="hidden" name="zf_redirect_url" value="" />
+            <input type="hidden" name="zc_gad" value="" />
+
+            <!-- Name row -->
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="Name_First">
+                  {lang === "es" ? "Nombre" : "First Name"}
+                </label>
+                <input
+                  type="text"
+                  id="Name_First"
+                  name="Name_First"
+                  maxlength="255"
+                  class="form-input"
+                  placeholder={lang === "es" ? "Juan" : "John"}
+                  required
+                />
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="Name_Last">
+                  {lang === "es" ? "Apellido" : "Last Name"}
+                </label>
+                <input
+                  type="text"
+                  id="Name_Last"
+                  name="Name_Last"
+                  maxlength="255"
+                  class="form-input"
+                  placeholder={lang === "es" ? "García" : "Smith"}
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="form-field">
+              <label class="form-label" for="Email">Email</label>
+              <input
+                type="email"
+                id="Email"
+                name="Email"
+                maxlength="255"
+                class="form-input"
+                placeholder={lang === "es" ? "correo@empresa.com" : "email@company.com"}
+                required
+              />
+            </div>
+
+            <!-- Phone -->
+            <div class="form-field">
+              <label class="form-label" for="PhoneNumber_countrycode">
+                {lang === "es" ? "Teléfono" : "Phone"}
+              </label>
+              <input
+                type="tel"
+                id="PhoneNumber_countrycode"
+                name="PhoneNumber_countrycode"
+                maxlength="20"
+                class="form-input"
+                placeholder="+52 55 0000 0000"
+              />
+            </div>
+
+            <!-- Message -->
+            <div class="form-field">
+              <label class="form-label" for="MultiLine">
+                {lang === "es" ? "Descripción del Proyecto" : "Project Description"}
+              </label>
+              <textarea
+                id="MultiLine"
+                name="MultiLine"
+                maxlength="65535"
+                class="form-textarea"
+                rows="5"
+                placeholder={lang === "es"
+                  ? "Describa su proyecto, tipo de instalación, dimensiones aproximadas..."
+                  : "Describe your project, installation type, approximate dimensions..."}
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="form-submit">
+              {lang === "es" ? "Enviar Solicitud" : "Send Request"}
+            </button>
+
+            <p class="form-note">
+              {lang === "es"
+                ? "Al enviar acepta nuestra política de privacidad. Respuesta garantizada en 24h."
+                : "By submitting you accept our privacy policy. Response guaranteed within 24h."}
+            </p>
+          </form>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+</BaseLayout>
+
+<!-- Leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+<script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script is:inline>
+  function initContactMap() {
+    const mapEl = document.getElementById("contact-map");
+    if (!mapEl || mapEl._leaflet_id) return;
+
+    const lat = 19.4326;
+    const lng = -99.1932;
+
+    const map = L.map("contact-map", {
+      center: [lat, lng],
+      zoom: 16,
+      scrollWheelZoom: false,
+    });
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 19,
+    }).addTo(map);
+
+    const icon = L.divIcon({
+      className: "",
+      html: `<div style="
+        width:2.5rem;height:2.5rem;
+        background:#2563eb;
+        border-radius:50% 50% 50% 0;
+        transform:rotate(-45deg);
+        border:3px solid white;
+        box-shadow:0 4px 12px rgb(0 0 0/.3);
+      "></div>`,
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+      popupAnchor: [0, -40],
+    });
+
+    L.marker([lat, lng], { icon })
+      .addTo(map)
+      .bindPopup(`<strong>PUR&PIR Insulation</strong><br/><small>Polanco, Mexico City</small>`)
+      .openPopup();
+  }
+
+  document.addEventListener("DOMContentLoaded", initContactMap);
+  document.addEventListener("astro:page-load", initContactMap);
+</script>
+
+<style>
+  /* Hero */
+  .contact-hero {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: white;
+    padding-block: var(--space-16);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .contact-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 40rem;
+  }
+
+  .contact-hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #60a5fa;
+    margin-bottom: var(--space-4);
+  }
+
+  .contact-hero__title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-4);
+  }
+
+  .contact-hero__desc {
+    font-size: var(--font-size-lg);
+    color: #94a3b8;
+    line-height: 1.7;
+  }
+
+  /* Section */
+  .contact-section {
+    padding-block: var(--space-20);
+    background-color: var(--color-bg);
+  }
+
+  .contact-section__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+
+  @media (min-width: 1024px) {
+    .contact-section__inner {
+      grid-template-columns: 1fr 1.2fr;
+      align-items: start;
+    }
+  }
+
+  /* Info */
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .contact-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .contact-card {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-4) var(--space-5);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color var(--transition-base),
+      box-shadow var(--transition-base),
+      transform var(--transition-base);
+  }
+
+  .contact-card:not(.contact-card--static):hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .contact-card--static {
+    cursor: default;
+  }
+
+  .contact-card__icon {
+    flex-shrink: 0;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contact-card__icon--blue   { background-color: #dbeafe; color: var(--color-primary); }
+  .contact-card__icon--green  { background-color: #dcfce7; color: #16a34a; }
+  .contact-card__icon--orange { background-color: #ffedd5; color: var(--color-accent-orange); }
+  .contact-card__icon--purple { background-color: #f3e8ff; color: #7c3aed; }
+
+  .contact-card__label {
+    display: block;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-1);
+  }
+
+  .contact-card__value {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+
+  /* Map */
+  .contact-map__canvas {
+    width: 100%;
+    height: 280px;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
+  }
+
+  .contact-map__link {
+    display: inline-block;
+    margin-top: var(--space-2);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .contact-map__link:hover {
+    text-decoration: underline;
+  }
+
+  /* Form */
+  .contact-form-wrap {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-8);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .contact-form-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-2);
+  }
+
+  .contact-form-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    line-height: 1.6;
+    margin-bottom: var(--space-6);
+  }
+
+  .contact-form-header {
+    margin-bottom: var(--space-6);
+    padding-bottom: var(--space-6);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* Zoho form fields */
+  .zoho-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (max-width: 480px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .form-label {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-light);
+  }
+
+  .form-input,
+  .form-textarea {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    transition: border-color var(--transition-base),
+      box-shadow var(--transition-base);
+    outline: none;
+    font-family: var(--font-sans);
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgb(37 99 235 / 0.1);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 8rem;
+    line-height: 1.6;
+  }
+
+  .form-submit {
+    width: 100%;
+    padding: var(--space-4);
+    background-color: var(--color-primary);
+    color: white;
+    font-weight: 700;
+    font-size: var(--font-size-base);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color var(--transition-base),
+      transform var(--transition-fast);
+    margin-top: var(--space-2);
+    font-family: var(--font-sans);
+  }
+
+  .form-submit:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-1px);
+  }
+
+  .form-submit:active {
+    transform: translateY(0);
+  }
+
+  .form-note {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    text-align: center;
+    line-height: 1.5;
+  }
+</style>
