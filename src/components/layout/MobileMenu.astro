@@ -3,6 +3,9 @@ import { X, Globe } from "lucide-astro";
 import NavLinks from "../ui/NavLinks.astro";
 import type { TranslationKeys } from "../../i18n/en";
 import type { Lang } from "../../i18n/utils";
+import { Image } from "astro:assets";
+
+import logo from "../../assets/logo.svg";
 
 interface Props {
   t: TranslationKeys;
@@ -26,10 +29,17 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
 >
   <div class="mobile-menu__header">
     <a href={prefix} class="mobile-menu__logo">
-      <div class="mobile-menu__logo-icon">I</div>
-      <span class="mobile-menu__logo-text">
-        Pur&Pir<span class="mobile-menu__logo-accent">Insulation</span>
-      </span>
+      <Image
+        src={logo}
+        alt="Panel sándwich para techo industrial"
+        width={200}
+        height={50}
+        class="mobile-menu__logo-img"
+        format="webp"
+        quality={95}
+        loading="eager"
+        format="svg"
+      />
     </a>
     <button class="mobile-menu__close" id="menu-close" aria-label="Close menu">
       <X size={20} />
@@ -142,6 +152,11 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
     align-items: center;
     gap: var(--space-2);
     text-decoration: none;
+  }
+  .mobile-menu__logo-img {
+    display: block;
+    height: 2.5rem;
+    width: auto;
   }
 
   .mobile-menu__logo-icon {

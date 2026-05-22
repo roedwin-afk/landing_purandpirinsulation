@@ -7,6 +7,7 @@ export const es: TranslationKeys = {
     fireSafety: "Seguridad contra Incendios",
     applications: "Aplicaciones",
     getQuote: "Solicitar Cotización Técnica",
+    blog: "Blog",
   },
   hero: {
     title: "Aislamiento Térmico de Alto Rendimiento para",

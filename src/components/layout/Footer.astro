@@ -3,6 +3,9 @@ import { Mail, Phone, MapPin } from "lucide-astro";
 import NavLinks from "../ui/NavLinks.astro";
 import type { TranslationKeys } from "../../i18n/en";
 import type { Lang } from "../../i18n/utils";
+import { Image } from "astro:assets";
+
+import logo from "../../assets/logo.svg";
 
 interface Props {
   t: TranslationKeys;
@@ -44,10 +47,17 @@ const currentYear = new Date().getFullYear();
       <!-- Brand -->
       <div class="footer__brand">
         <a href={prefix} class="footer__logo">
-          <div class="footer__logo-icon">I</div>
-          <span class="footer__logo-text">
-            Pur&Pir<span class="footer__logo-accent">Insulation</span>
-          </span>
+          <Image
+                src={logo}
+                alt="Panel sándwich para techo industrial"
+                width={250}
+                height={70}
+                class="footer__logo-img"
+                format="webp"
+                quality={95}
+                loading="eager"
+                format="svg"
+            />
         </a>
         <p class="footer__desc">{t.footer.description}</p>
 
@@ -186,29 +196,11 @@ const currentYear = new Date().getFullYear();
     margin-bottom: var(--space-4);
   }
 
-  .footer__logo-icon {
-    width: 2rem;
-    height: 2rem;
-    background-color: var(--color-primary);
-    border-radius: var(--radius-md);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 700;
-    font-size: var(--font-size-sm);
-  }
-
-  .footer__logo-text {
-    font-size: var(--font-size-lg);
-    font-weight: 700;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: -0.01em;
-  }
-
-  .footer__logo-accent {
-    color: var(--color-primary-light);
+  .footer__logo-img {
+    display: block;
+    height: 4.5rem;
+    width: auto;
+    filter: brightness(0) invert(1);
   }
 
   .footer__desc {

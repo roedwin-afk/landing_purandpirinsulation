@@ -5,6 +5,7 @@ export const en = {
     fireSafety: "Fire Safety",
     applications: "Applications",
     getQuote: "Get Technical Quote",
+    blog: "Blog",
   },
   hero: {
     title: "High-Performance Thermal Insulation for",
