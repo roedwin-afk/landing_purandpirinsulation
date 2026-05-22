@@ -1,0 +1,542 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getLang, useTranslations } from "../i18n/utils";
+import { Thermometer, Calculator, ArrowRight } from "lucide-astro";
+
+const base = import.meta.env.BASE_URL;
+const lang = getLang(Astro.url, base);
+const t = useTranslations(lang);
+const tp = t.pages.uvalue;
+const prefix = lang === "es" ? `${base}es/` : base;
+---
+
+<BaseLayout t={t} lang={lang} canonicalUrl={Astro.url.href}>
+  <main>
+
+    <!-- Hero -->
+    <div class="uv-hero">
+      <div class="container uv-hero__inner">
+        <div class="uv-hero__eyebrow">
+          <Thermometer size={14} />
+          {tp.hero.eyebrow}
+        </div>
+        <h1 class="uv-hero__title">
+          {tp.hero.title} <span class="uv-hero__accent">{tp.hero.titleAccent}</span>
+        </h1>
+        <p class="uv-hero__desc">{tp.hero.description}</p>
+      </div>
+    </div>
+
+    <!-- Formula Section -->
+    <section class="uv-section">
+      <div class="container">
+        <div class="uv-formula reveal">
+          <div class="uv-formula__text">
+            <h2 class="uv-formula__title">{tp.formula.title}</h2>
+            <p class="uv-formula__desc">{tp.formula.description}</p>
+            <div class="uv-formula__vars">
+              <div class="uv-formula__var">
+                <span class="uv-formula__var-key">U</span>
+                <span class="uv-formula__var-value">{tp.formula.vars.u}</span>
+              </div>
+              <div class="uv-formula__var">
+                <span class="uv-formula__var-key">λ</span>
+                <span class="uv-formula__var-value">{tp.formula.vars.lambda}</span>
+              </div>
+              <div class="uv-formula__var">
+                <span class="uv-formula__var-key">d</span>
+                <span class="uv-formula__var-value">{tp.formula.vars.d}</span>
+              </div>
+            </div>
+          </div>
+          <div class="uv-formula__equation">
+            <div class="uv-formula__eq-box">
+              <div class="uv-formula__eq-lhs">U =</div>
+              <div class="uv-formula__eq-fraction">
+                <span class="uv-formula__eq-num">λ</span>
+                <span class="uv-formula__eq-bar"></span>
+                <span class="uv-formula__eq-den">d</span>
+              </div>
+            </div>
+            <p class="uv-formula__eq-caption">{tp.formula.simplified}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lambda Table -->
+    <section class="uv-section uv-section--alt">
+      <div class="container">
+        <h2 class="uv-section__title reveal">{tp.lambdaSection.title}</h2>
+        <div class="uv-lambda-grid reveal">
+          <div class="uv-lambda-card uv-lambda-card--pir">
+            <div class="uv-lambda-card__badge">PIR</div>
+            <div class="uv-lambda-card__value">0.020 – 0.022</div>
+            <div class="uv-lambda-card__unit">W/m·K</div>
+            <div class="uv-lambda-card__label">{tp.lambdaSection.pir.label}</div>
+          </div>
+          <div class="uv-lambda-card uv-lambda-card--pur">
+            <div class="uv-lambda-card__badge">PUR</div>
+            <div class="uv-lambda-card__value">~ 0.022</div>
+            <div class="uv-lambda-card__unit">W/m·K</div>
+            <div class="uv-lambda-card__label">{tp.lambdaSection.pur.label}</div>
+          </div>
+          <div class="uv-lambda-card uv-lambda-card--mw">
+            <div class="uv-lambda-card__badge">MW</div>
+            <div class="uv-lambda-card__value">0.035 – 0.040</div>
+            <div class="uv-lambda-card__unit">W/m·K</div>
+            <div class="uv-lambda-card__label">{tp.lambdaSection.mw.label}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calculator -->
+    <section class="uv-section">
+      <div class="container">
+        <h2 class="uv-section__title reveal">{tp.calculator.title}</h2>
+        <div class="uv-calc reveal">
+          <div class="uv-calc__form">
+            <div class="uv-calc__field">
+              <label class="uv-calc__label" for="thickness">{tp.calculator.thickness}</label>
+              <input
+                type="number"
+                id="thickness"
+                class="uv-calc__input"
+                placeholder="100"
+                min="20"
+                max="300"
+                value="100"
+              />
+            </div>
+            <div class="uv-calc__field">
+              <label class="uv-calc__label" for="material">{tp.calculator.material}</label>
+              <select id="material" class="uv-calc__input">
+                {tp.materials.map((m) => (
+                  <option value={m.lambda}>{m.label}</option>
+                ))}
+              </select>
+            </div>
+            <button id="calc-btn" class="uv-calc__btn">
+              <Calculator size={18} />
+              {tp.calculator.calculate}
+            </button>
+          </div>
+          <div class="uv-calc__result" id="calc-result">
+            <div class="uv-calc__result-label">{tp.calculator.result}</div>
+            <div class="uv-calc__result-value" id="result-value">—</div>
+            <div class="uv-calc__result-unit">{tp.calculator.unit}</div>
+            <div class="uv-calc__result-rating" id="result-rating"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="uv-cta">
+      <div class="container uv-cta__inner">
+        <h2 class="uv-cta__title">{tp.cta.title}</h2>
+        <p class="uv-cta__desc">{tp.cta.description}</p>
+        <a href={`${prefix}contact`} class="uv-cta__btn">
+          {tp.cta.btn}
+          <ArrowRight size={18} />
+        </a>
+      </div>
+    </section>
+
+  </main>
+</BaseLayout>
+
+<script>
+  const btn = document.getElementById("calc-btn");
+  const resultValue = document.getElementById("result-value");
+  const resultRating = document.getElementById("result-rating");
+  const resultBox = document.getElementById("calc-result");
+
+  // ratings are injected from the page via data attribute
+  const ratingsEl = document.getElementById("calc-ratings");
+  const ratings = ratingsEl ? JSON.parse(ratingsEl.dataset.ratings ?? "{}") : {
+    excellent: "Excellent ✓",
+    good: "Good",
+    standard: "Standard",
+    poor: "Poor ✗",
+  };
+
+  btn?.addEventListener("click", () => {
+    const thickness = parseFloat((document.getElementById("thickness") as HTMLInputElement).value);
+    const lambda = parseFloat((document.getElementById("material") as HTMLSelectElement).value);
+
+    if (!thickness || thickness <= 0) return;
+
+    const uValue = lambda / (thickness / 1000);
+    const rounded = uValue.toFixed(3);
+
+    if (resultValue) resultValue.textContent = rounded;
+
+    let rating = "";
+    let color = "";
+    if (uValue <= 0.25) { rating = ratings.excellent; color = "#16a34a"; }
+    else if (uValue <= 0.35) { rating = ratings.good; color = "#2563eb"; }
+    else if (uValue <= 0.50) { rating = ratings.standard; color = "#f59e0b"; }
+    else { rating = ratings.poor; color = "#ef4444"; }
+
+    if (resultRating) {
+      resultRating.textContent = rating;
+      resultRating.style.color = color;
+    }
+    if (resultBox) resultBox.classList.add("uv-calc__result--active");
+  });
+</script>
+
+<!-- Pass ratings to script -->
+<div
+  id="calc-ratings"
+  data-ratings={JSON.stringify({
+    excellent: tp.ratings.excellent,
+    good: tp.ratings.good,
+    standard: tp.ratings.standard,
+    poor: tp.ratings.poor,
+  })}
+  style="display:none"
+></div>
+
+<style>
+  .uv-hero {
+    background: linear-gradient(135deg, var(--color-hero-bg-start) 0%, var(--color-hero-bg-end) 100%);
+    color: white;
+    padding-block: var(--space-16);
+    position: relative;
+    overflow: hidden;
+  }
+  .uv-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+  .uv-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 48rem;
+  }
+  .uv-hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #60a5fa;
+    margin-bottom: var(--space-4);
+  }
+  .uv-hero__title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-4);
+    line-height: 1.15;
+  }
+  .uv-hero__accent { color: #60a5fa; }
+  .uv-hero__desc {
+    font-size: var(--font-size-lg);
+    color: #94a3b8;
+    line-height: 1.7;
+  }
+  .uv-section {
+    padding-block: var(--space-20);
+    background-color: var(--color-bg);
+  }
+  .uv-section--alt { background-color: var(--color-surface-alt); }
+  .uv-section__title {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-10);
+  }
+  .uv-formula {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+  @media (min-width: 1024px) {
+    .uv-formula { grid-template-columns: 1.2fr 1fr; }
+  }
+  .uv-formula__title {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-4);
+  }
+  .uv-formula__desc {
+    color: var(--color-text-light);
+    line-height: 1.7;
+    margin-bottom: var(--space-6);
+  }
+  .uv-formula__vars {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .uv-formula__var {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    font-size: var(--font-size-sm);
+  }
+  .uv-formula__var-key {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background-color: var(--color-primary-muted);
+    color: var(--color-primary);
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    font-style: italic;
+    flex-shrink: 0;
+  }
+  .uv-formula__var-value { color: var(--color-text-light); }
+  .uv-formula__equation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+  .uv-formula__eq-box {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    background-color: var(--color-text);
+    color: white;
+    padding: var(--space-8) var(--space-10);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-xl);
+  }
+  .uv-formula__eq-lhs {
+    font-size: 2.5rem;
+    font-weight: 800;
+    font-style: italic;
+  }
+  .uv-formula__eq-fraction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+  }
+  .uv-formula__eq-num,
+  .uv-formula__eq-den {
+    font-size: 2rem;
+    font-weight: 700;
+    font-style: italic;
+  }
+  .uv-formula__eq-num { color: #60a5fa; }
+  .uv-formula__eq-den { color: #94a3b8; }
+  .uv-formula__eq-bar {
+    width: 2.5rem;
+    height: 2px;
+    background-color: white;
+  }
+  .uv-formula__eq-caption {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+  .uv-lambda-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+  @media (min-width: 768px) {
+    .uv-lambda-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .uv-lambda-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-8);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
+  }
+  .uv-lambda-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+  .uv-lambda-card__badge {
+    display: inline-block;
+    font-weight: 800;
+    font-size: var(--font-size-sm);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-4);
+  }
+  .uv-lambda-card--pir .uv-lambda-card__badge { background-color: #dbeafe; color: var(--color-primary); }
+  .uv-lambda-card--pur .uv-lambda-card__badge { background-color: #dcfce7; color: #16a34a; }
+  .uv-lambda-card--mw .uv-lambda-card__badge  { background-color: #ffedd5; color: var(--color-accent-orange); }
+  .uv-lambda-card__value {
+    font-size: var(--font-size-3xl);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    margin-bottom: var(--space-1);
+  }
+  .uv-lambda-card__unit {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-3);
+  }
+  .uv-lambda-card__label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    font-weight: 500;
+  }
+  .uv-calc {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-10);
+    box-shadow: var(--shadow-md);
+  }
+  @media (min-width: 768px) {
+    .uv-calc { grid-template-columns: 1fr 1fr; align-items: start; }
+  }
+  .uv-calc__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+  .uv-calc__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .uv-calc__label {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-light);
+  }
+  .uv-calc__input {
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    outline: none;
+    font-family: var(--font-sans);
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  }
+  .uv-calc__input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgb(37 99 235 / 0.1);
+  }
+  .uv-calc__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    background-color: var(--color-primary);
+    color: white;
+    font-weight: 700;
+    font-size: var(--font-size-sm);
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    transition: background-color var(--transition-base), transform var(--transition-fast);
+    font-family: var(--font-sans);
+    margin-top: var(--space-2);
+  }
+  .uv-calc__btn:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-1px);
+  }
+  .uv-calc__result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: var(--space-8);
+    border-radius: var(--radius-xl);
+    border: 2px dashed var(--color-border);
+    min-height: 12rem;
+    transition: border-color var(--transition-base), background-color var(--transition-base);
+  }
+  .uv-calc__result--active {
+    border-style: solid;
+    border-color: var(--color-primary);
+    background-color: var(--color-primary-muted);
+  }
+  .uv-calc__result-label {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-3);
+  }
+  .uv-calc__result-value {
+    font-size: 4rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--color-text);
+    line-height: 1;
+    margin-bottom: var(--space-2);
+  }
+  .uv-calc__result-unit {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-3);
+  }
+  .uv-calc__result-rating {
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+  }
+  .uv-cta {
+    padding-block: var(--space-20);
+    background-color: var(--color-primary);
+    color: white;
+    text-align: center;
+  }
+  .uv-cta__inner { max-width: 48rem; margin-inline: auto; }
+  .uv-cta__title {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    margin-bottom: var(--space-4);
+    letter-spacing: -0.02em;
+  }
+  .uv-cta__desc {
+    font-size: var(--font-size-lg);
+    color: #bfdbfe;
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+  }
+  .uv-cta__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    background-color: white;
+    color: var(--color-primary);
+    font-weight: 700;
+    padding: var(--space-4) var(--space-10);
+    border-radius: var(--radius-md);
+    transition: background-color var(--transition-base), transform var(--transition-fast);
+  }
+  .uv-cta__btn:hover {
+    background-color: #eff6ff;
+    transform: translateY(-1px);
+  }
+</style>

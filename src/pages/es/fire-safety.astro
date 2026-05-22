@@ -1,0 +1,672 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getLang, useTranslations } from "../../i18n/utils";
+import {
+  ShieldCheck,
+  BadgeCheck,
+  FlameKindling,
+  TriangleAlert,
+} from "lucide-astro";
+
+const base = import.meta.env.BASE_URL;
+const lang = getLang(Astro.url, base);
+const t = useTranslations(lang);
+const tp = t.pages.fireSafety;
+const prefix = lang === "es" ? `${base}es/` : base;
+---
+
+<BaseLayout t={t} lang={lang} canonicalUrl={Astro.url.href}>
+  <main>
+    <!-- Hero -->
+    <div class="fs-hero">
+      <div class="container fs-hero__inner">
+        <div class="fs-hero__eyebrow">
+          <ShieldCheck size={14} />
+          {tp.hero.eyebrow}
+        </div>
+        <h1 class="fs-hero__title">
+          {tp.hero.title}
+          <span class="fs-hero__accent">{tp.hero.titleAccent}</span>
+        </h1>
+        <p class="fs-hero__desc">{tp.hero.description}</p>
+      </div>
+    </div>
+
+    <!-- Euroclass Section -->
+    <section class="fs-section">
+      <div class="container">
+        <h2 class="fs-section__title reveal">{tp.euroclass.title}</h2>
+        <p class="fs-section__desc reveal">{tp.euroclass.description}</p>
+
+        <div class="fs-table-wrap reveal">
+          <table class="fs-table">
+            <thead>
+              <tr>
+                <th>{tp.euroclass.tableHeaders.class}</th>
+                <th>{tp.euroclass.tableHeaders.material}</th>
+                <th>{tp.euroclass.tableHeaders.smoke}</th>
+                <th>{tp.euroclass.tableHeaders.droplets}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                tp.euroclass.rows.map((row) => (
+                  <tr>
+                    <td>
+                      <strong>{row.class}</strong>
+                    </td>
+                    <td>{row.material}</td>
+                    <td>{row.smoke}</td>
+                    <td>{row.droplets}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <div class="fs-legend reveal">
+          {
+            tp.euroclass.legend.map((item) => (
+              <div class="fs-legend__item">
+                <strong>{item.key}</strong> — {item.value}
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- PIR Carbonization -->
+    <section class="fs-section fs-section--alt">
+      <div class="container fs-carbonization">
+        <div class="fs-carbonization__text reveal">
+          <div class="fs-carbonization__eyebrow">
+            <FlameKindling size={16} />
+            {tp.carbonization.eyebrow}
+          </div>
+          <h2 class="fs-carbonization__title">{tp.carbonization.title}</h2>
+          <p>{tp.carbonization.description}</p>
+          <ul class="fs-carbonization__list">
+            {
+              tp.carbonization.benefits.map((benefit) => (
+                <li>
+                  <ShieldCheck size={16} />
+                  {benefit}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="fs-carbonization__visual reveal">
+          <svg
+            viewBox="0 0 400 280"
+            xmlns="http://www.w3.org/2000/svg"
+            class="fs-diagram"
+          >
+            <!-- ── PIR Panel (left) ── -->
+            <text
+              x="90"
+              y="20"
+              text-anchor="middle"
+              font-weight="800"
+              font-size="14"
+              fill="#0f172a"
+              font-family="Inter, sans-serif">PIR</text
+            >
+
+            <!-- Fire attacking from left -->
+            <g>
+              <path
+                d="M10,60 Q5,80 15,90 Q8,100 18,108 Q10,118 20,125 Q12,135 22,140 Q15,150 10,160 Q20,155 25,145 Q30,155 28,165 Q35,150 32,138 Q40,148 38,158 Q45,140 40,128 Q50,138 48,148 Q55,128 48,115 Q58,125 56,112 Q60,95 50,85 Q55,70 45,60 Q35,72 30,62 Q22,75 18,65 Q14,58 10,60Z"
+                fill="#ef4444"
+                opacity="0.9"></path>
+              <path
+                d="M18,75 Q14,90 22,98 Q16,108 24,115 Q18,125 26,130 Q20,140 24,148 Q30,138 28,128 Q36,138 34,148 Q40,132 36,120 Q44,130 42,118 Q46,105 38,95 Q42,82 34,74 Q28,84 24,76 Q20,72 18,75Z"
+                fill="#fbbf24"
+                opacity="0.8"></path>
+            </g>
+
+            <!-- PIR: Metal skin top -->
+            <rect x="60" y="55" width="120" height="10" rx="2" fill="#94a3b8"
+            ></rect>
+            <text
+              x="122"
+              y="63"
+              text-anchor="middle"
+              font-size="7"
+              fill="white"
+              font-family="Inter, sans-serif">METAL SKIN</text
+            >
+
+            <!-- PIR: Char layer -->
+            <rect x="60" y="65" width="25" height="150" rx="2" fill="#1e293b"
+            ></rect>
+            <text
+              x="72"
+              y="145"
+              text-anchor="middle"
+              font-size="7"
+              fill="#94a3b8"
+              font-family="Inter, sans-serif"
+              writing-mode="tb">CHAR LAYER</text
+            >
+
+            <!-- PIR: Core intact -->
+            <rect
+              x="85"
+              y="65"
+              width="75"
+              height="150"
+              rx="0"
+              fill="#3b82f6"
+              opacity="0.85"></rect>
+            <text
+              x="122"
+              y="138"
+              text-anchor="middle"
+              font-size="9"
+              fill="white"
+              font-family="Inter, sans-serif"
+              font-weight="600">PIR CORE</text
+            >
+            <text
+              x="122"
+              y="150"
+              text-anchor="middle"
+              font-size="7"
+              fill="#bfdbfe"
+              font-family="Inter, sans-serif">INTACT</text
+            >
+
+            <!-- PIR: Metal skin bottom -->
+            <rect x="60" y="215" width="120" height="10" rx="2" fill="#94a3b8"
+            ></rect>
+            <text
+              x="122"
+              y="223"
+              text-anchor="middle"
+              font-size="7"
+              fill="white"
+              font-family="Inter, sans-serif">METAL SKIN</text
+            >
+
+            <!-- Shield icon indicator -->
+            <circle cx="122" cy="255" r="12" fill="#dcfce7"></circle>
+            <text
+              x="122"
+              y="260"
+              text-anchor="middle"
+              font-size="12"
+              fill="#16a34a">✓</text
+            >
+            <text
+              x="122"
+              y="275"
+              text-anchor="middle"
+              font-size="8"
+              fill="#16a34a"
+              font-family="Inter, sans-serif"
+              font-weight="600">{tp.carbonization.pirCaption}</text
+            >
+
+            <!-- ── PUR Panel (right) ── -->
+            <text
+              x="310"
+              y="20"
+              text-anchor="middle"
+              font-weight="800"
+              font-size="14"
+              fill="#0f172a"
+              font-family="Inter, sans-serif">PUR</text
+            >
+
+            <!-- Fire attacking from left on PUR -->
+            <g>
+              <path
+                d="M228,60 Q223,80 233,90 Q226,100 236,108 Q228,118 238,125 Q230,135 240,140 Q233,150 228,160 Q238,155 243,145 Q248,155 246,165 Q253,150 250,138 Q258,148 256,158 Q263,140 258,128 Q268,138 266,148 Q273,128 266,115 Q276,125 274,112 Q278,95 268,85 Q273,70 263,60 Q253,72 248,62 Q240,75 236,65 Q232,58 228,60Z"
+                fill="#ef4444"
+                opacity="0.9"></path>
+              <path
+                d="M236,75 Q232,90 240,98 Q234,108 242,115 Q236,125 244,130 Q238,140 242,148 Q248,138 246,128 Q254,138 252,148 Q258,132 254,120 Q262,130 260,118 Q264,105 256,95 Q260,82 252,74 Q246,84 242,76 Q238,72 236,75Z"
+                fill="#fbbf24"
+                opacity="0.8"></path>
+            </g>
+
+            <!-- PUR: Metal skin top -->
+            <rect x="278" y="55" width="120" height="10" rx="2" fill="#94a3b8"
+            ></rect>
+            <text
+              x="338"
+              y="63"
+              text-anchor="middle"
+              font-size="7"
+              fill="white"
+              font-family="Inter, sans-serif">METAL SKIN</text
+            >
+
+            <!-- PUR: Melting/collapsing core -->
+            <rect
+              x="278"
+              y="65"
+              width="120"
+              height="60"
+              rx="2"
+              fill="#fca5a5"
+              opacity="0.9"></rect>
+            <text
+              x="338"
+              y="100"
+              text-anchor="middle"
+              font-size="8"
+              fill="#7f1d1d"
+              font-family="Inter, sans-serif"
+              font-weight="600">MELTING</text
+            >
+
+            <rect
+              x="285"
+              y="125"
+              width="106"
+              height="40"
+              rx="4"
+              fill="#fecaca"
+              opacity="0.7"></rect>
+            <rect
+              x="295"
+              y="165"
+              width="88"
+              height="30"
+              rx="4"
+              fill="#fee2e2"
+              opacity="0.5"></rect>
+            <rect
+              x="310"
+              y="195"
+              width="60"
+              height="20"
+              rx="4"
+              fill="#fff1f2"
+              opacity="0.4"></rect>
+
+            <!-- Collapse lines -->
+            <line
+              x1="290"
+              y1="125"
+              x2="278"
+              y2="165"
+              stroke="#ef4444"
+              stroke-width="1.5"
+              opacity="0.5"></line>
+            <line
+              x1="370"
+              y1="125"
+              x2="382"
+              y2="165"
+              stroke="#ef4444"
+              stroke-width="1.5"
+              opacity="0.5"></line>
+
+            <!-- PUR: Metal skin bottom (deformed) -->
+            <path
+              d="M278,215 Q298,210 318,218 Q338,225 358,213 Q368,210 398,215 L398,225 Q368,220 358,223 Q338,235 318,228 Q298,220 278,225Z"
+              fill="#94a3b8"></path>
+
+            <!-- Warning indicator -->
+            <circle cx="338" cy="255" r="12" fill="#fee2e2"></circle>
+            <text
+              x="338"
+              y="260"
+              text-anchor="middle"
+              font-size="12"
+              fill="#ef4444">✕</text
+            >
+            <text
+              x="338"
+              y="275"
+              text-anchor="middle"
+              font-size="8"
+              fill="#ef4444"
+              font-family="Inter, sans-serif"
+              font-weight="600">{tp.carbonization.purCaption}</text
+            >
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- FM Global -->
+    <section class="fs-section">
+      <div class="container">
+        <div class="fs-fm reveal">
+          <div class="fs-fm__badge">
+            <BadgeCheck size={32} />
+            {tp.fm.badge}
+          </div>
+          <div class="fs-fm__content">
+            <h2 class="fs-fm__title">{tp.fm.title}</h2>
+            <p class="fs-fm__desc">{tp.fm.description}</p>
+            <ul class="fs-fm__list">
+              {
+                tp.fm.tests.map((test) => (
+                  <li>
+                    <TriangleAlert size={14} /> {test}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="fs-cta">
+      <div class="container fs-cta__inner">
+        <h2 class="fs-cta__title">{tp.cta.title}</h2>
+        <p class="fs-cta__desc">{tp.cta.description}</p>
+        <a href={`${prefix}contact`} class="fs-cta__btn">{tp.cta.btn}</a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .fs-hero {
+    background: linear-gradient(
+      135deg,
+      var(--color-hero-bg-start) 0%,
+      var(--color-hero-bg-end) 100%
+    );
+    color: white;
+    padding-block: var(--space-16);
+    position: relative;
+    overflow: hidden;
+  }
+  .fs-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+  .fs-hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 48rem;
+  }
+  .fs-hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #60a5fa;
+    margin-bottom: var(--space-4);
+  }
+  .fs-hero__title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-4);
+    line-height: 1.15;
+  }
+  .fs-hero__accent {
+    color: #60a5fa;
+  }
+  .fs-hero__desc {
+    font-size: var(--font-size-lg);
+    color: #94a3b8;
+    line-height: 1.7;
+  }
+  .fs-section {
+    padding-block: var(--space-20);
+    background-color: var(--color-bg);
+  }
+  .fs-section--alt {
+    background-color: var(--color-surface-alt);
+  }
+  .fs-section__title {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-4);
+  }
+  .fs-section__desc {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-light);
+    max-width: 48rem;
+    line-height: 1.7;
+    margin-bottom: var(--space-10);
+  }
+  .fs-table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+  }
+  .fs-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--color-surface);
+    font-size: var(--font-size-sm);
+  }
+  .fs-table thead tr {
+    background-color: var(--color-text);
+    color: white;
+  }
+  .fs-table th {
+    padding: var(--space-4);
+    text-align: left;
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .fs-table td {
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .fs-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+    padding: var(--space-4) var(--space-6);
+    background-color: var(--color-surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+  }
+  .fs-legend__item strong {
+    color: var(--color-text);
+  }
+  .fs-carbonization {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+  @media (min-width: 1024px) {
+    .fs-carbonization {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .fs-carbonization__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
+    margin-bottom: var(--space-4);
+  }
+  .fs-carbonization__title {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-4);
+  }
+  .fs-carbonization__list {
+    margin-top: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .fs-carbonization__list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+  }
+  .fs-carbonization__list li :global(svg) {
+    color: var(--color-success);
+    flex-shrink: 0;
+  }
+  .fs-carbonization__visual {
+    display: flex;
+    gap: var(--space-6);
+    justify-content: center;
+  }
+  .fs-visual-card {
+    flex: 1;
+    max-width: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  .fs-visual-card__label {
+    font-weight: 800;
+    font-size: var(--font-size-lg);
+    color: var(--color-text);
+  }
+  .fs-visual-card__bar {
+    width: 100%;
+    border-radius: var(--radius-md);
+  }
+  .fs-visual-card__bar--char {
+    height: 2rem;
+    background-color: #1e293b;
+  }
+  .fs-visual-card__bar--core {
+    height: 8rem;
+    background-color: #3b82f6;
+    opacity: 0.7;
+  }
+  .fs-visual-card__bar--melt {
+    height: 4rem;
+    background: linear-gradient(to bottom, #ef4444, transparent);
+  }
+  .fs-visual-card__caption {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+  .fs-fm {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-10);
+    box-shadow: var(--shadow-md);
+  }
+  @media (min-width: 768px) {
+    .fs-fm {
+      grid-template-columns: auto 1fr;
+      align-items: start;
+    }
+  }
+  .fs-fm__badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    background-color: var(--color-primary-muted);
+    color: var(--color-primary);
+    padding: var(--space-6);
+    border-radius: var(--radius-xl);
+    font-weight: 700;
+    font-size: var(--font-size-sm);
+    text-align: center;
+    min-width: 8rem;
+  }
+  .fs-fm__title {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    margin-bottom: var(--space-3);
+  }
+  .fs-fm__desc {
+    color: var(--color-text-light);
+    line-height: 1.7;
+    margin-bottom: var(--space-6);
+  }
+  .fs-fm__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+  }
+  .fs-fm__list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .fs-fm__list li :global(svg) {
+    color: #f59e0b;
+    flex-shrink: 0;
+  }
+  .fs-cta {
+    padding-block: var(--space-20);
+    background-color: var(--color-primary);
+    color: white;
+    text-align: center;
+  }
+  .fs-cta__inner {
+    max-width: 48rem;
+    margin-inline: auto;
+  }
+  .fs-cta__title {
+    font-size: var(--font-size-4xl);
+    font-weight: 800;
+    margin-bottom: var(--space-4);
+    letter-spacing: -0.02em;
+  }
+  .fs-cta__desc {
+    font-size: var(--font-size-lg);
+    color: #bfdbfe;
+    margin-bottom: var(--space-8);
+    line-height: 1.7;
+  }
+  .fs-cta__btn {
+    display: inline-block;
+    background-color: white;
+    color: var(--color-primary);
+    font-weight: 700;
+    padding: var(--space-4) var(--space-10);
+    border-radius: var(--radius-md);
+    transition:
+      background-color var(--transition-base),
+      transform var(--transition-fast);
+  }
+  .fs-cta__btn:hover {
+    background-color: #eff6ff;
+    transform: translateY(-1px);
+  }
+  .fs-diagram {
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    margin-inline: auto;
+  }
+</style>

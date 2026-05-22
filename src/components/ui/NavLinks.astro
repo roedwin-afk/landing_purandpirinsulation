@@ -14,10 +14,9 @@ const base = import.meta.env.BASE_URL;
 const prefix = lang === "es" ? `${base}es/` : `${base}`;
 
 const links = [
-  { href: `${prefix}#technical`, label: t.nav.technicalSpecs },
   { href: `${prefix}#comparative`, label: t.nav.comparison },
-  { href: `${prefix}#fire-safety`, label: t.nav.fireSafety },
-  { href: `${prefix}#applications`, label: t.nav.applications },
+  { href: `${prefix}fire-safety`, label: t.nav.fireSafety },
+  { href: `${prefix}insulation-calculator`, label: t.nav.uvalue },
   { href: `${prefix}blog`, label: t.nav.blog },
 ];
 ---
