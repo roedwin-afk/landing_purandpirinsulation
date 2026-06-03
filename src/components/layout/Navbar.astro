@@ -17,7 +17,10 @@ const base = import.meta.env.BASE_URL;
 const alternateLang = lang === "en" ? "es" : "en";
 const prefix = lang === "es" ? `${base}es/` : `${base}`;
 
-const currentPath = Astro.url.pathname.replace(base, "").replace(/^es\//, "");
+const currentPath = Astro.url.pathname
+    .replace(base, "")
+    .replace(/^es\//, "")
+    .replace(/\/$/, "");
 const alternatePath =
     lang === "en" ? `${base}es/${currentPath}` : `${base}${currentPath}`;
 ---
@@ -41,7 +44,7 @@ const alternatePath =
 
         <!-- Desktop Nav -->
         <nav class="navbar__nav" aria-label="Main navigation">
-            <NavLinks t={t} lang={lang} orientation="horizontal" />
+            <NavLinks t={t} lang={lang} orientation="horizontal" currentPath={currentPath} />
         </nav>
 
         <!-- Right side -->
@@ -113,6 +116,31 @@ const alternatePath =
         display: none;
         flex: 1;
         justify-content: center;
+    }
+
+    .navbar__nav .nav-link {
+        color: var(--color-text);
+    }
+
+    .navbar__nav .nav-link:hover {
+        color: var(--color-primary);
+    }
+
+    .navbar__nav .nav-link.nav-link--active {
+        color: var(--color-primary);
+        font-weight: 700;
+        position: relative;
+    }
+
+    .navbar__nav .nav-link.nav-link--active::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -0.35rem;
+        height: 3px;
+        border-radius: var(--radius-full);
+        background-color: var(--color-primary);
     }
 
     @media (min-width: 768px) {
