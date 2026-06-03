@@ -16,14 +16,29 @@ const prefix = lang === "es" ? `${base}es/` : base;
     <!-- Hero -->
     <div class="uv-hero">
       <div class="container uv-hero__inner">
-        <div class="uv-hero__eyebrow">
-          <Thermometer size={14} />
-          {tp.hero.eyebrow}
+        <div class="uv-hero__content">
+          <div class="uv-hero__eyebrow">
+            <Thermometer size={14} />
+            {tp.hero.eyebrow}
+          </div>
+          <h1 class="uv-hero__title">
+            {tp.hero.title}
+            <span class="uv-hero__accent">{tp.hero.titleAccent}</span>
+          </h1>
+          <p class="uv-hero__desc">{tp.hero.description}</p>
         </div>
-        <h1 class="uv-hero__title">
-          {tp.hero.title} <span class="uv-hero__accent">{tp.hero.titleAccent}</span>
-        </h1>
-        <p class="uv-hero__desc">{tp.hero.description}</p>
+
+        <div class="uv-hero__visual" aria-hidden="true">
+          <div class="uv-hero__eq-box">
+            <div class="uv-hero__eq-lhs">U =</div>
+            <div class="uv-hero__eq-fraction">
+              <span class="uv-hero__eq-num">λ</span>
+              <span class="uv-hero__eq-bar"></span>
+              <span class="uv-hero__eq-den">d</span>
+            </div>
+          </div>
+          <p class="uv-hero__eq-caption">{tp.formula.simplified}</p>
+        </div>
       </div>
     </div>
 
@@ -51,7 +66,7 @@ const prefix = lang === "es" ? `${base}es/` : base;
           </div>
           <div class="uv-formula__equation">
             <div class="uv-formula__eq-box">
-              <div class="uv-formula__eq-lhs">U =</div>
+              <div class="uv-hero__eq-lhs">U =</div>
               <div class="uv-formula__eq-fraction">
                 <span class="uv-formula__eq-num">λ</span>
                 <span class="uv-formula__eq-bar"></span>
@@ -153,18 +168,23 @@ const prefix = lang === "es" ? `${base}es/` : base;
   const resultRating = document.getElementById("result-rating");
   const resultBox = document.getElementById("calc-result");
 
-  // ratings are injected from the page via data attribute
   const ratingsEl = document.getElementById("calc-ratings");
-  const ratings = ratingsEl ? JSON.parse(ratingsEl.dataset.ratings ?? "{}") : {
-    excellent: "Excellent ✓",
-    good: "Good",
-    standard: "Standard",
-    poor: "Poor ✗",
-  };
+  const ratings = ratingsEl
+    ? JSON.parse(ratingsEl.dataset.ratings ?? "{}")
+    : {
+        excellent: "Excellent ✓",
+        good: "Good",
+        standard: "Standard",
+        poor: "Poor ✗",
+      };
 
   btn?.addEventListener("click", () => {
-    const thickness = parseFloat((document.getElementById("thickness") as HTMLInputElement).value);
-    const lambda = parseFloat((document.getElementById("material") as HTMLSelectElement).value);
+    const thickness = parseFloat(
+      (document.getElementById("thickness") as HTMLInputElement).value
+    );
+    const lambda = parseFloat(
+      (document.getElementById("material") as HTMLSelectElement).value
+    );
 
     if (!thickness || thickness <= 0) return;
 
@@ -175,10 +195,19 @@ const prefix = lang === "es" ? `${base}es/` : base;
 
     let rating = "";
     let color = "";
-    if (uValue <= 0.25) { rating = ratings.excellent; color = "#16a34a"; }
-    else if (uValue <= 0.35) { rating = ratings.good; color = "#2563eb"; }
-    else if (uValue <= 0.50) { rating = ratings.standard; color = "#f59e0b"; }
-    else { rating = ratings.poor; color = "#ef4444"; }
+    if (uValue <= 0.25) {
+      rating = ratings.excellent;
+      color = "#16a34a";
+    } else if (uValue <= 0.35) {
+      rating = ratings.good;
+      color = "#2563eb";
+    } else if (uValue <= 0.5) {
+      rating = ratings.standard;
+      color = "#f59e0b";
+    } else {
+      rating = ratings.poor;
+      color = "#ef4444";
+    }
 
     if (resultRating) {
       resultRating.textContent = rating;
@@ -188,7 +217,6 @@ const prefix = lang === "es" ? `${base}es/` : base;
   });
 </script>
 
-<!-- Pass ratings to script -->
 <div
   id="calc-ratings"
   data-ratings={JSON.stringify({
@@ -201,6 +229,7 @@ const prefix = lang === "es" ? `${base}es/` : base;
 ></div>
 
 <style>
+  /* ── Hero ── */
   .uv-hero {
     background: linear-gradient(135deg, var(--color-hero-bg-start) 0%, var(--color-hero-bg-end) 100%);
     color: white;
@@ -221,7 +250,19 @@ const prefix = lang === "es" ? `${base}es/` : base;
   .uv-hero__inner {
     position: relative;
     z-index: 1;
-    max-width: 48rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+  }
+  @media (min-width: 1024px) {
+    .uv-hero__inner {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  .uv-hero__content {
+    max-width: 42rem;
   }
   .uv-hero__eyebrow {
     display: inline-flex;
@@ -247,6 +288,60 @@ const prefix = lang === "es" ? `${base}es/` : base;
     color: #94a3b8;
     line-height: 1.7;
   }
+  .uv-hero__visual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    flex-shrink: 0;
+  }
+  .uv-hero__eq-box {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    background: rgb(255 255 255 / 0.07);
+    border: 1px solid rgb(255 255 255 / 0.12);
+    backdrop-filter: blur(8px);
+    padding: var(--space-8) var(--space-10);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-xl);
+  }
+  .uv-hero__eq-lhs {
+    font-size: 2.5rem;
+    font-weight: 800;
+    font-style: italic;
+    color: white;
+  }
+  .uv-hero__eq-fraction {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+  }
+  .uv-hero__eq-num {
+    font-size: 2rem;
+    font-weight: 700;
+    font-style: italic;
+    color: #60a5fa;
+  }
+  .uv-hero__eq-bar {
+    width: 2.5rem;
+    height: 2px;
+    background-color: white;
+  }
+  .uv-hero__eq-den {
+    font-size: 2rem;
+    font-weight: 700;
+    font-style: italic;
+    color: #94a3b8;
+  }
+  .uv-hero__eq-caption {
+    font-size: var(--font-size-xs);
+    color: rgb(255 255 255 / 0.4);
+    text-align: center;
+  }
+
+  /* ── Sections ── */
   .uv-section {
     padding-block: var(--space-20);
     background-color: var(--color-bg);
@@ -319,11 +414,6 @@ const prefix = lang === "es" ? `${base}es/` : base;
     border-radius: var(--radius-2xl);
     box-shadow: var(--shadow-xl);
   }
-  .uv-formula__eq-lhs {
-    font-size: 2.5rem;
-    font-weight: 800;
-    font-style: italic;
-  }
   .uv-formula__eq-fraction {
     display: flex;
     flex-direction: column;
@@ -379,7 +469,7 @@ const prefix = lang === "es" ? `${base}es/` : base;
   }
   .uv-lambda-card--pir .uv-lambda-card__badge { background-color: #dbeafe; color: var(--color-primary); }
   .uv-lambda-card--pur .uv-lambda-card__badge { background-color: #dcfce7; color: #16a34a; }
-  .uv-lambda-card--mw .uv-lambda-card__badge  { background-color: #ffedd5; color: var(--color-accent-orange); }
+  .uv-lambda-card--mw  .uv-lambda-card__badge { background-color: #ffedd5; color: var(--color-accent-orange); }
   .uv-lambda-card__value {
     font-size: var(--font-size-3xl);
     font-weight: 800;
@@ -397,6 +487,8 @@ const prefix = lang === "es" ? `${base}es/` : base;
     color: var(--color-text-light);
     font-weight: 500;
   }
+
+  /* ── Calculator ── */
   .uv-calc {
     display: grid;
     grid-template-columns: 1fr;
@@ -505,13 +597,18 @@ const prefix = lang === "es" ? `${base}es/` : base;
     font-size: var(--font-size-sm);
     font-weight: 700;
   }
+
+  /* ── CTA ── */
   .uv-cta {
     padding-block: var(--space-20);
     background-color: var(--color-primary);
     color: white;
     text-align: center;
   }
-  .uv-cta__inner { max-width: 48rem; margin-inline: auto; }
+  .uv-cta__inner {
+    max-width: 48rem;
+    margin-inline: auto;
+  }
   .uv-cta__title {
     font-size: var(--font-size-4xl);
     font-weight: 800;

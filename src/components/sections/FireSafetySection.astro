@@ -8,7 +8,7 @@ interface Props {
   lang: Lang;
 }
 
-const { t } = Astro.props;
+const { t, lang } = Astro.props;
 ---
 
 <section id="fire-safety" class="fire-safety">
@@ -52,7 +52,7 @@ const { t } = Astro.props;
             <span class="diagram__material">PIR</span>
             <div class="diagram__bar-wrap">
               <div class="diagram__bar diagram__bar--pir">
-                <span class="diagram__bar-label">Carbonization Layer</span>
+                <span class="diagram__bar-label">{lang === "es" ? "Capa de Carbonización" : "Carbonization Layer"}</span>
               </div>
             </div>
             <span class="diagram__rating diagram__rating--good">B-s1</span>
@@ -62,7 +62,7 @@ const { t } = Astro.props;
             <span class="diagram__material">PUR</span>
             <div class="diagram__bar-wrap">
               <div class="diagram__bar diagram__bar--pur">
-                <span class="diagram__bar-label">Rapid Melt</span>
+                <span class="diagram__bar-label">{lang === "es" ? "Fusión Rápida" : "Rapid Melt"}</span>
               </div>
             </div>
             <span class="diagram__rating diagram__rating--bad">C / D</span>
@@ -72,7 +72,7 @@ const { t } = Astro.props;
             <span class="diagram__material">MW</span>
             <div class="diagram__bar-wrap">
               <div class="diagram__bar diagram__bar--mw">
-                <span class="diagram__bar-label">Non-combustible</span>
+                <span class="diagram__bar-label">{lang === "es" ? "No Combustible" : "Non-combustible"}</span>
               </div>
             </div>
             <span class="diagram__rating diagram__rating--best">A1</span>
