@@ -10,6 +10,8 @@ interface Props {
 const { t, lang } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const prefix = lang === "es" ? `${base}es/` : `${base}`;
+
+const fileName = lang === "es" ? "files/catalogo-tecnico-de-paneles-sandwich.pdf" : "files/technical-catalog-of-sandwich-panels.pdf";
 ---
 
 <section class="hero">
@@ -21,7 +23,7 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
       </h1>
       <p class="hero__description">{t.hero.description}</p>
       <div class="hero__actions">
-        <a href={`${prefix}#quote`} class="hero__btn hero__btn--primary">
+        <a href={fileName} download class="hero__btn hero__btn--primary">
           {t.hero.downloadCatalog}
         </a>
         <a href={`${prefix}#technical`} class="hero__btn hero__btn--secondary">

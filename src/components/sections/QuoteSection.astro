@@ -60,11 +60,15 @@ const prefix = lang === "es" ? `${base}es/` : `${base}`;
       </div>
       <div class="cta__card">
         <span class="cta__card-value">FM</span>
-        <span class="cta__card-label">Global Approved</span>
+        <span class="cta__card-label">
+          {lang === "es" ? "Aprobado globalmente" : "Global Approved"}
+        </span>
       </div>
       <div class="cta__card">
         <span class="cta__card-value">EN</span>
-        <span class="cta__card-label">13501-1 Certified</span>
+        <span class="cta__card-label">
+          {lang === "es" ? "Certificado 13501-1" : "13501-1 Certified"}
+        </span>
       </div>
     </div>
 

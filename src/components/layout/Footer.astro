@@ -19,7 +19,6 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer class="footer">
-
   <!-- Top bar -->
   <div class="footer__topbar">
     <div class="container footer__topbar-inner">
@@ -32,10 +31,15 @@ const currentYear = new Date().getFullYear();
           <Phone size={14} />
           +52 55 9990 3546
         </a>
-        <span class="footer__contact-item footer__contact-item--text">
-          <MapPin size={14} />
-          Polanco, Mexico City
-        </span>
+        <a
+          href="https://www.google.com/maps?cid=15759084979067732314"
+          target="_blank"
+        >
+          <span class="footer__contact-item">
+            <MapPin size={14} />
+            Polanco, Mexico City
+          </span>
+        </a>
       </div>
     </div>
   </div>
@@ -43,21 +47,20 @@ const currentYear = new Date().getFullYear();
   <!-- Main footer -->
   <div class="footer__main">
     <div class="container footer__main-inner">
-
       <!-- Brand -->
       <div class="footer__brand">
         <a href={prefix} class="footer__logo">
           <Image
-                src={logo}
-                alt="Panel sándwich para techo industrial"
-                width={250}
-                height={70}
-                class="footer__logo-img"
-                format="webp"
-                quality={95}
-                loading="eager"
-                format="svg"
-            />
+            src={logo}
+            alt="Panel sándwich para techo industrial"
+            width={250}
+            height={70}
+            class="footer__logo-img"
+            format="webp"
+            quality={95}
+            loading="eager"
+            format="svg"
+          />
         </a>
         <p class="footer__desc">{t.footer.description}</p>
 
@@ -73,10 +76,22 @@ const currentYear = new Date().getFullYear();
       <div class="footer__col">
         <h5 class="footer__col-title">{t.footer.coreMaterials.title}</h5>
         <ul class="footer__links">
-          <li><a href={`${prefix}#comparative`} class="footer__link">{t.footer.coreMaterials.links.pir}</a></li>
-          <li><a href={`${prefix}#comparative`} class="footer__link">{t.footer.coreMaterials.links.pur}</a></li>
-          <li><a href={`${prefix}#comparative`} class="footer__link">{t.footer.coreMaterials.links.rockwool}</a></li>
-          <li><a href={`${prefix}#comparative`} class="footer__link">{t.footer.coreMaterials.links.coldRoom}</a></li>
+          <li>
+            <a href={`${prefix}#comparative`} class="footer__link"
+              >{t.footer.coreMaterials.links.pir}</a>
+          </li>
+          <li>
+            <a href={`${prefix}insulation-calculator/`} class="footer__link"
+              >{t.footer.coreMaterials.links.pur}</a>
+          </li>
+          <li>
+            <a href={`${prefix}fire-safety/`} class="footer__link"
+              >{t.footer.coreMaterials.links.rockwool}</a>
+          </li>
+          <li>
+            <a href={`${prefix}contact/`} class="footer__link"
+              >{t.quote.sectionTitle}</a>
+          </li>
         </ul>
       </div>
 
@@ -84,10 +99,22 @@ const currentYear = new Date().getFullYear();
       <div class="footer__col">
         <h5 class="footer__col-title">{t.footer.technical.title}</h5>
         <ul class="footer__links">
-          <li><a href={`${prefix}#technical`} class="footer__link">{t.footer.technical.links.uvalue}</a></li>
-          <li><a href={`${prefix}#fire-safety`} class="footer__link">{t.footer.technical.links.fire}</a></li>
-          <li><a href={`${prefix}contact/`} class="footer__link">{t.footer.technical.links.installation}</a></li>
-          <li><a href={`${prefix}contact/`} class="footer__link">{t.footer.technical.links.bim}</a></li>
+          <li>
+            <a href={`${prefix}insulation-calculator/`} class="footer__link"
+              >{t.footer.technical.links.uvalue}</a>
+          </li>
+          <li>
+            <a href={`${prefix}fire-safety/`} class="footer__link"
+              >{t.footer.technical.links.fire}</a>
+          </li>
+          <li>
+            <a href={`${prefix}contact/`} class="footer__link"
+              >{t.footer.technical.links.installation}</a>
+          </li>
+          <li>
+            <a href={`${prefix}contact/`} class="footer__link"
+              >{t.footer.technical.links.bim}</a>
+          </li>
         </ul>
       </div>
 
@@ -98,7 +125,6 @@ const currentYear = new Date().getFullYear();
         </h5>
         <NavLinks t={t} lang={lang} orientation="vertical" />
       </div>
-
     </div>
   </div>
 
@@ -106,16 +132,21 @@ const currentYear = new Date().getFullYear();
   <div class="footer__bottom">
     <div class="container footer__bottom-inner">
       <p class="footer__copyright">
-        &copy; {currentYear} {t.footer.copyright}
+        &copy; {currentYear}
+        {t.footer.copyright}
       </p>
       <div class="footer__bottom-links">
-        <a href={`${prefix}#`} class="footer__bottom-link">{t.footer.privacy}</a>
-        <a href={`${prefix}#`} class="footer__bottom-link">{t.footer.compliance}</a>
-        <a href={`${prefix}contact/`} class="footer__bottom-link">{t.footer.contact}</a>
+        <a href={`${prefix}#`} class="footer__bottom-link">{t.footer.privacy}</a
+        >
+        <a href={`${prefix}#`} class="footer__bottom-link"
+          >{t.footer.compliance}</a
+        >
+        <a href={`${prefix}contact/`} class="footer__bottom-link"
+          >{t.footer.contact}</a
+        >
       </div>
     </div>
   </div>
-
 </footer>
 
 <style>
