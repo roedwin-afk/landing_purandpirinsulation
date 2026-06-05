@@ -22,20 +22,46 @@ const contact = {
     <!-- Page Header -->
     <div class="contact-hero">
       <div class="container contact-hero__inner">
-        <div class="contact-hero__eyebrow">
-          <Mail size={14} />
-          {lang === "es" ? "Estamos aquí para ayudarle" : "We are here to help"}
+        <!-- Texto izquierdo -->
+        <div class="contact-hero__text">
+          <div class="contact-hero__eyebrow">
+            <Mail size={14} />
+            {
+              lang === "es"
+                ? "Estamos aquí para ayudarle"
+                : "We are here to help"
+            }
+          </div>
+          <h1 class="contact-hero__title">
+            {lang === "es" ? "Contacto" : "Contact Us"}
+          </h1>
+          <p class="contact-hero__desc">
+            {
+              lang === "es"
+                ? "Solicite una consulta técnica, ficha de datos o análisis de valor U para su proyecto."
+                : "Request a technical consultation, data sheet, or U-Value analysis for your project."
+            }
+          </p>
         </div>
-        <h1 class="contact-hero__title">
-          {lang === "es" ? "Contacto" : "Contact Us"}
-        </h1>
-        <p class="contact-hero__desc">
-          {
-            lang === "es"
-              ? "Solicite una consulta técnica, ficha de datos o análisis de valor U para su proyecto."
-              : "Request a technical consultation, data sheet, or U-Value analysis for your project."
-          }
-        </p>
+
+        <!-- Sobre animado -->
+        <div class="contact-hero__visual">
+          <div class="letter-image">
+            <div class="animated-mail">
+              <div class="back-fold"></div>
+              <div class="letter">
+                <div class="letter-border"></div>
+                <div class="letter-title"></div>
+                <div class="letter-context"></div>
+                <div class="letter-stamp"></div>
+              </div>
+              <div class="top-fold"></div>
+              <div class="body"></div>
+              <div class="left-fold"></div>
+            </div>
+            <div class="shadow"></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -329,7 +355,33 @@ const contact = {
   .contact-hero__inner {
     position: relative;
     z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .contact-hero__inner {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .contact-hero__text {
     max-width: 40rem;
+  }
+
+  .contact-hero__visual {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .contact-hero__visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 260px;
+    }
   }
 
   .contact-hero__eyebrow {
@@ -355,6 +407,145 @@ const contact = {
     font-size: var(--font-size-lg);
     color: #94a3b8;
     line-height: 1.7;
+  }
+
+  /* ── Sobre animado ── */
+  .letter-image {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+  }
+
+  .animated-mail {
+    position: absolute;
+    height: 150px;
+    width: 200px;
+    transition: .4s;
+  }
+
+  .animated-mail .body {
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 100px 200px;
+    border-color: transparent transparent #1d4ed8 transparent;
+    z-index: 2;
+  }
+
+  .animated-mail .top-fold {
+    position: absolute;
+    top: 50px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 50px 100px 0 100px;
+    transform-origin: 50% 0%;
+    transition: transform .4s .4s, z-index .2s .4s;
+    border-color: #1e40af transparent transparent transparent;
+    z-index: 2;
+  }
+
+  .animated-mail .back-fold {
+    position: absolute;
+    bottom: 0;
+    width: 200px;
+    height: 100px;
+    background: #1e40af;
+    z-index: 0;
+  }
+
+  .animated-mail .left-fold {
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 50px 0 50px 100px;
+    border-color: transparent transparent transparent #2563eb;
+    z-index: 2;
+  }
+
+  .animated-mail .letter {
+    left: 20px;
+    bottom: 0px;
+    position: absolute;
+    width: 160px;
+    height: 60px;
+    background: white;
+    z-index: 1;
+    overflow: hidden;
+    transition: .4s .2s;
+  }
+
+  .animated-mail .letter .letter-border {
+    height: 10px;
+    width: 100%;
+    background: repeating-linear-gradient(
+      -45deg,
+      #3b82f6,
+      #3b82f6 8px,
+      transparent 8px,
+      transparent 18px
+    );
+  }
+
+  .animated-mail .letter .letter-title {
+    margin-top: 10px;
+    margin-left: 5px;
+    height: 10px;
+    width: 40%;
+    background: #3b82f6;
+  }
+
+  .animated-mail .letter .letter-context {
+    margin-top: 10px;
+    margin-left: 5px;
+    height: 10px;
+    width: 20%;
+    background: #3b82f6;
+  }
+
+  .animated-mail .letter .letter-stamp {
+    margin-top: 30px;
+    margin-left: 120px;
+    border-radius: 100%;
+    height: 30px;
+    width: 30px;
+    background: #3b82f6;
+    opacity: 0.3;
+  }
+
+  .shadow {
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    width: 400px;
+    height: 30px;
+    transition: .4s;
+    transform: translateX(-50%);
+    border-radius: 100%;
+    background: radial-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.0), rgba(0,0,0,0.0));
+  }
+
+  .letter-image:hover .animated-mail {
+    transform: translateY(50px);
+  }
+
+  .letter-image:hover .animated-mail .top-fold {
+    transition: transform .4s, z-index .2s;
+    transform: rotateX(180deg);
+    z-index: 0;
+  }
+
+  .letter-image:hover .animated-mail .letter {
+    height: 180px;
+  }
+
+  .letter-image:hover .shadow {
+    width: 250px;
   }
 
   /* Section */
@@ -425,22 +616,10 @@ const contact = {
     justify-content: center;
   }
 
-  .contact-card__icon--blue {
-    background-color: #dbeafe;
-    color: var(--color-primary);
-  }
-  .contact-card__icon--green {
-    background-color: #dcfce7;
-    color: #16a34a;
-  }
-  .contact-card__icon--orange {
-    background-color: #ffedd5;
-    color: var(--color-accent-orange);
-  }
-  .contact-card__icon--purple {
-    background-color: #f3e8ff;
-    color: #7c3aed;
-  }
+  .contact-card__icon--blue   { background-color: #dbeafe; color: var(--color-primary); }
+  .contact-card__icon--green  { background-color: #dcfce7; color: #16a34a; }
+  .contact-card__icon--orange { background-color: #ffedd5; color: var(--color-accent-orange); }
+  .contact-card__icon--purple { background-color: #f3e8ff; color: #7c3aed; }
 
   .contact-card__label {
     display: block;
@@ -464,8 +643,9 @@ const contact = {
   .contact-map {
     position: relative;
     z-index: 0;
-    isolation: isolate;   /* ← fuerza stacking context sin depender de z-index */
-}
+    isolation: isolate;
+  }
+
   .contact-map__canvas {
     width: 100%;
     height: 280px;
@@ -518,7 +698,6 @@ const contact = {
     border-bottom: 1px solid var(--color-border);
   }
 
-  /* Zoho form fields */
   .zoho-form {
     display: flex;
     flex-direction: column;
