@@ -19,31 +19,50 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer class="footer">
-  <!-- Top bar -->
-  <div class="footer__topbar">
-    <div class="container footer__topbar-inner">
-      <div class="footer__contact-items">
-        <a href="mailto:info@panelforcoldroom.com" class="footer__contact-item">
-          <Mail size={14} />
-          info@panelforcoldroom.com
-        </a>
-        <a href="tel:+525599903546" class="footer__contact-item">
-          <Phone size={14} />
-          +52 55 9990 3546
-        </a>
-        <a
-          href="https://www.google.com/maps?cid=15759084979067732314"
-          target="_blank"
-        >
-          <span class="footer__contact-item">
-            <MapPin size={14} />
-            Polanco, Mexico City
-          </span>
-        </a>
-      </div>
+  <!-- Contact strip -->
+  <div class="footer__strip">
+    <div class="container footer__strip-inner">
+      <a href="mailto:ventas@mequipo.com" class="footer__strip-card">
+        <div class="footer__strip-card__before"></div>
+        <div class="footer__strip-icon">
+          <Mail size={22} />
+        </div>
+        <div class="footer__strip-body">
+          <span class="footer__strip-label">Email</span>
+          <span class="footer__strip-value">ventas@mequipo.com</span>
+        </div>
+      </a>
+
+      <a href="tel:+525599903546" class="footer__strip-card">
+        <div class="footer__strip-icon">
+          <Phone size={22} />
+        </div>
+        <div class="footer__strip-body">
+          <span class="footer__strip-label"
+            >{lang === "es" ? "Teléfono" : "Phone"}</span
+          >
+          <span class="footer__strip-value">+52 55 9990 3546</span>
+        </div>
+      </a>
+
+      <a
+        href="https://www.google.com/maps?cid=15759084979067732314"
+        target="_blank"
+        rel="noopener"
+        class="footer__strip-card"
+      >
+        <div class="footer__strip-icon">
+          <MapPin size={22} />
+        </div>
+        <div class="footer__strip-body">
+          <span class="footer__strip-label"
+            >{lang === "es" ? "Ubicación" : "Location"}</span
+          >
+          <span class="footer__strip-value">Polanco, Mexico City</span>
+        </div>
+      </a>
     </div>
   </div>
-
   <!-- Main footer -->
   <div class="footer__main">
     <div class="container footer__main-inner">
@@ -78,19 +97,23 @@ const currentYear = new Date().getFullYear();
         <ul class="footer__links">
           <li>
             <a href={`${prefix}#comparative`} class="footer__link"
-              >{t.footer.coreMaterials.links.pir}</a>
+              >{t.footer.coreMaterials.links.pir}</a
+            >
           </li>
           <li>
             <a href={`${prefix}insulation-calculator/`} class="footer__link"
-              >{t.footer.coreMaterials.links.pur}</a>
+              >{t.footer.coreMaterials.links.pur}</a
+            >
           </li>
           <li>
             <a href={`${prefix}fire-safety/`} class="footer__link"
-              >{t.footer.coreMaterials.links.rockwool}</a>
+              >{t.footer.coreMaterials.links.rockwool}</a
+            >
           </li>
           <li>
             <a href={`${prefix}contact/`} class="footer__link"
-              >{t.quote.sectionTitle}</a>
+              >{t.quote.sectionTitle}</a
+            >
           </li>
         </ul>
       </div>
@@ -101,19 +124,23 @@ const currentYear = new Date().getFullYear();
         <ul class="footer__links">
           <li>
             <a href={`${prefix}insulation-calculator/`} class="footer__link"
-              >{t.footer.technical.links.uvalue}</a>
+              >{t.footer.technical.links.uvalue}</a
+            >
           </li>
           <li>
             <a href={`${prefix}fire-safety/`} class="footer__link"
-              >{t.footer.technical.links.fire}</a>
+              >{t.footer.technical.links.fire}</a
+            >
           </li>
           <li>
             <a href={`${prefix}contact/`} class="footer__link"
-              >{t.footer.technical.links.installation}</a>
+              >{t.footer.technical.links.installation}</a
+            >
           </li>
           <li>
             <a href={`${prefix}contact/`} class="footer__link"
-              >{t.footer.technical.links.bim}</a>
+              >{t.footer.technical.links.bim}</a
+            >
           </li>
         </ul>
       </div>
@@ -123,7 +150,10 @@ const currentYear = new Date().getFullYear();
         <h5 class="footer__col-title">
           {lang === "es" ? "Navegación" : "Navigation"}
         </h5>
-        <NavLinks t={t} lang={lang} orientation="vertical" />
+        <NavLinks t={t} lang={lang} orientation="vertical" context="footer" />
+        <a href={`${prefix}contact/`} class="footer__nav-link">
+          {t.footer.contact}
+        </a>
       </div>
     </div>
   </div>
@@ -136,9 +166,93 @@ const currentYear = new Date().getFullYear();
         {t.footer.copyright}
       </p>
       <div class="footer__bottom-links">
-        <a href={`${prefix}contact/`} class="footer__bottom-link"
-          >{t.footer.contact}</a
-        >
+        <div class="footer__socials">
+          <a
+            href="https://www.facebook.com/mequipo"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer__social"
+            aria-label="Facebook"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+              ></path>
+            </svg>
+          </a>
+          <a
+            href="https://www.instagram.com/mequipo"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer__social"
+            aria-label="Instagram"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"
+              ></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+              ></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+            </svg>
+          </a>
+          <a
+            href="https://www.linkedin.com/company/mequipo"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer__social"
+            aria-label="LinkedIn"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+              ></path><rect width="4" height="12" x="2" y="9"></rect><circle
+                cx="4"
+                cy="4"
+                r="2"></circle>
+            </svg>
+          </a>
+          <a
+            href="https://wa.me/525599903546"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer__social"
+            aria-label="WhatsApp"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
+              ></path><path
+                d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.535 5.874L0 24l6.29-1.507A11.946 11.946 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.882a9.877 9.877 0 0 1-5.031-1.378l-.36-.214-3.733.894.944-3.631-.235-.374A9.846 9.846 0 0 1 2.118 12C2.118 6.533 6.533 2.118 12 2.118c5.466 0 9.882 4.415 9.882 9.882 0 5.466-4.416 9.882-9.882 9.882z"
+              ></path>
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -300,6 +414,18 @@ const currentYear = new Date().getFullYear();
   .footer__link:hover {
     color: #ffffff;
   }
+  .footer__nav-link {
+    display: block;
+    font-size: var(--font-size-base);
+    padding-block: var(--space-3);
+    color: #e2e8f0;
+    text-decoration: none;
+    transition: color var(--transition-base);
+  }
+
+  .footer__nav-link:hover {
+    color: #ffffff;
+  }
 
   /* Bottom */
   .footer__bottom {
@@ -341,5 +467,188 @@ const currentYear = new Date().getFullYear();
 
   .footer__bottom-link:hover {
     color: #ffffff;
+  }
+
+  .footer__socials {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-left: var(--space-4);
+    padding-left: var(--space-4);
+    border-left: 1px solid #334155;
+  }
+
+  .footer__social {
+    color: #94a3b8;
+    transition: color var(--transition-base);
+    display: flex;
+    align-items: center;
+  }
+
+  .footer__social:hover {
+    color: #ffffff;
+  }
+  .footer__link,
+  .footer__nav-link,
+  .footer__bottom-link {
+    position: relative;
+    display: inline-block;
+  }
+
+  .footer__link::after,
+  .footer__nav-link::after,
+  .footer__bottom-link::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, var(--color-primary-light), #93c5fd);
+    bottom: -3px;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease-out;
+  }
+
+  .footer__link:hover::after,
+  .footer__nav-link:hover::after,
+  .footer__bottom-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  :global(.footer .nav-link) {
+    position: relative;
+    display: inline-block;
+    color: #e2e8f0;
+  font-size: var(--font-size-sm); 
+  }
+
+  :global(.footer .nav-link:hover) {
+  color: #ffffff;        /* ← agrega este bloque */
+}
+
+  :global(.footer .nav-link::after) {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, var(--color-primary-light), #93c5fd);
+    bottom: -3px;
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s ease-out;
+  }
+
+  :global(.footer .nav-link:hover::after) {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* ── Contact strip ── */
+  .footer__strip {
+    background-color: #0f172a;
+    border-bottom: 1px solid #1e293b;
+    padding-block: var(--space-6);
+  }
+
+  .footer__strip-inner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+  }
+
+  @media (max-width: 640px) {
+    .footer__strip-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .footer__strip-card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--space-6);
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    color: inherit;
+    transition:
+      transform 0.4s ease,
+      box-shadow 0.4s ease,
+      border-color 0.4s ease;
+  }
+
+  /* Barrido holográfico */
+  .footer__strip-card::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      0deg,
+      transparent,
+      transparent 30%,
+      rgba(59, 130, 246, 0.25) /* --color-primary con baja opacidad */
+    );
+    transform: rotate(-45deg);
+    opacity: 0;
+    transition:
+      opacity 0.4s ease,
+      transform 0.5s ease;
+    pointer-events: none;
+  }
+
+  .footer__strip-card:hover {
+    transform: scale(1.03) translateY(-2px);
+    box-shadow: 0 0 24px rgba(59, 130, 246, 0.35);
+    border-color: rgba(59, 130, 246, 0.5);
+  }
+
+  .footer__strip-card:hover::before {
+    opacity: 1;
+    transform: rotate(-45deg) translateY(100%);
+  }
+
+  .footer__strip-icon {
+    flex-shrink: 0;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius-lg);
+    background-color: rgba(59, 130, 246, 0.15);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #60a5fa;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer__strip-label {
+    display: block;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #64748b;
+    margin-bottom: 0.2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer__strip-value {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: #e2e8f0;
+    position: relative;
+    z-index: 1;
   }
 </style>

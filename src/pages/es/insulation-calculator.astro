@@ -12,7 +12,6 @@ const prefix = lang === "es" ? `${base}es/` : base;
 
 <BaseLayout t={t} lang={lang} canonicalUrl={Astro.url.href}>
   <main>
-
     <!-- Hero -->
     <div class="uv-hero">
       <div class="container uv-hero__inner">
@@ -56,7 +55,9 @@ const prefix = lang === "es" ? `${base}es/` : base;
               </div>
               <div class="uv-formula__var">
                 <span class="uv-formula__var-key">λ</span>
-                <span class="uv-formula__var-value">{tp.formula.vars.lambda}</span>
+                <span class="uv-formula__var-value"
+                  >{tp.formula.vars.lambda}</span
+                >
               </div>
               <div class="uv-formula__var">
                 <span class="uv-formula__var-key">d</span>
@@ -88,13 +89,17 @@ const prefix = lang === "es" ? `${base}es/` : base;
             <div class="uv-lambda-card__badge">PIR</div>
             <div class="uv-lambda-card__value">0.020 – 0.022</div>
             <div class="uv-lambda-card__unit">W/m·K</div>
-            <div class="uv-lambda-card__label">{tp.lambdaSection.pir.label}</div>
+            <div class="uv-lambda-card__label">
+              {tp.lambdaSection.pir.label}
+            </div>
           </div>
           <div class="uv-lambda-card uv-lambda-card--pur">
             <div class="uv-lambda-card__badge">PUR</div>
             <div class="uv-lambda-card__value">~ 0.022</div>
             <div class="uv-lambda-card__unit">W/m·K</div>
-            <div class="uv-lambda-card__label">{tp.lambdaSection.pur.label}</div>
+            <div class="uv-lambda-card__label">
+              {tp.lambdaSection.pur.label}
+            </div>
           </div>
           <div class="uv-lambda-card uv-lambda-card--mw">
             <div class="uv-lambda-card__badge">MW</div>
@@ -113,7 +118,9 @@ const prefix = lang === "es" ? `${base}es/` : base;
         <div class="uv-calc reveal">
           <div class="uv-calc__form">
             <div class="uv-calc__field">
-              <label class="uv-calc__label" for="thickness">{tp.calculator.thickness}</label>
+              <label class="uv-calc__label" for="thickness"
+                >{tp.calculator.thickness}</label
+              >
               <input
                 type="number"
                 id="thickness"
@@ -125,12 +132,16 @@ const prefix = lang === "es" ? `${base}es/` : base;
               />
             </div>
             <div class="uv-calc__field">
-              <label class="uv-calc__label" for="material">{tp.calculator.material}</label>
-              <select id="material" class="uv-calc__input">
-                {tp.materials.map((m) => (
-                  <option value={m.lambda}>{m.label}</option>
-                ))}
-              </select>
+              <label class="uv-calc__label" for="material"
+                >{tp.calculator.material}</label
+                >
+                <select id="material" class="uv-calc__input">
+                  {
+                    tp.materials.map((m) => (
+                      <option value={m.lambda}>{m.label}</option>
+                    ))
+                  }
+                </select>
             </div>
             <button id="calc-btn" class="uv-calc__btn">
               <Calculator size={18} />
@@ -158,12 +169,12 @@ const prefix = lang === "es" ? `${base}es/` : base;
         </a>
       </div>
     </section>
-
   </main>
 </BaseLayout>
 
 <script>
   const btn = document.getElementById("calc-btn");
+  const thicknessInput = document.getElementById("thickness") as HTMLInputElement;
   const resultValue = document.getElementById("result-value");
   const resultRating = document.getElementById("result-rating");
   const resultBox = document.getElementById("calc-result");
@@ -171,48 +182,56 @@ const prefix = lang === "es" ? `${base}es/` : base;
   const ratingsEl = document.getElementById("calc-ratings");
   const ratings = ratingsEl
     ? JSON.parse(ratingsEl.dataset.ratings ?? "{}")
-    : {
-        excellent: "Excellent ✓",
-        good: "Good",
-        standard: "Standard",
-        poor: "Poor ✗",
-      };
+    : { excellent: "Excellent ✓", good: "Good", standard: "Standard", poor: "Poor ✗" };
+
+  const errorEl = document.createElement("p");
+  errorEl.className = "uv-calc__error";
+  errorEl.style.display = "none";
+  thicknessInput?.parentElement?.appendChild(errorEl);
+
+  const lang = document.documentElement.lang;
+  const errorMsg = {
+    empty: lang === "es" ? "Ingresa un valor de espesor." : "Enter a thickness value.",
+    min:   lang === "es" ? "El mínimo permitido es 20 mm." : "Minimum allowed is 20 mm.",
+    max:   lang === "es" ? "El máximo permitido es 300 mm." : "Maximum allowed is 300 mm.",
+  };
+
+  function showError(msg: string) {
+    errorEl.textContent = msg;
+    errorEl.style.display = "block";
+    thicknessInput?.classList.add("uv-calc__input--error");
+  }
+
+  function clearError() {
+    errorEl.style.display = "none";
+    thicknessInput?.classList.remove("uv-calc__input--error");
+  }
+
+  thicknessInput?.addEventListener("input", clearError);
 
   btn?.addEventListener("click", () => {
-    const thickness = parseFloat(
-      (document.getElementById("thickness") as HTMLInputElement).value
-    );
+    const raw = thicknessInput?.value.trim();
+    const thickness = parseFloat(raw);
+
+    if (!raw) return showError(errorMsg.empty);
+    if (thickness < 20) return showError(errorMsg.min);
+    if (thickness > 300) return showError(errorMsg.max);
+    clearError();
+
     const lambda = parseFloat(
       (document.getElementById("material") as HTMLSelectElement).value
     );
 
-    if (!thickness || thickness <= 0) return;
-
     const uValue = lambda / (thickness / 1000);
-    const rounded = uValue.toFixed(3);
+    if (resultValue) resultValue.textContent = uValue.toFixed(3);
 
-    if (resultValue) resultValue.textContent = rounded;
+    let rating = "", color = "";
+    if (uValue <= 0.25)      { rating = ratings.excellent; color = "#16a34a"; }
+    else if (uValue <= 0.35) { rating = ratings.good;      color = "#2563eb"; }
+    else if (uValue <= 0.5)  { rating = ratings.standard;  color = "#f59e0b"; }
+    else                     { rating = ratings.poor;       color = "#ef4444"; }
 
-    let rating = "";
-    let color = "";
-    if (uValue <= 0.25) {
-      rating = ratings.excellent;
-      color = "#16a34a";
-    } else if (uValue <= 0.35) {
-      rating = ratings.good;
-      color = "#2563eb";
-    } else if (uValue <= 0.5) {
-      rating = ratings.standard;
-      color = "#f59e0b";
-    } else {
-      rating = ratings.poor;
-      color = "#ef4444";
-    }
-
-    if (resultRating) {
-      resultRating.textContent = rating;
-      resultRating.style.color = color;
-    }
+    if (resultRating) { resultRating.textContent = rating; resultRating.style.color = color; }
     if (resultBox) resultBox.classList.add("uv-calc__result--active");
   });
 </script>
@@ -226,12 +245,17 @@ const prefix = lang === "es" ? `${base}es/` : base;
     poor: tp.ratings.poor,
   })}
   style="display:none"
-></div>
+>
+</div>
 
 <style>
   /* ── Hero ── */
   .uv-hero {
-    background: linear-gradient(135deg, var(--color-hero-bg-start) 0%, var(--color-hero-bg-end) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--color-hero-bg-start) 0%,
+      var(--color-hero-bg-end) 100%
+    );
     color: white;
     padding-block: var(--space-16);
     position: relative;
@@ -282,7 +306,9 @@ const prefix = lang === "es" ? `${base}es/` : base;
     margin-bottom: var(--space-4);
     line-height: 1.15;
   }
-  .uv-hero__accent { color: #60a5fa; }
+  .uv-hero__accent {
+    color: #60a5fa;
+  }
   .uv-hero__desc {
     font-size: var(--font-size-lg);
     color: #94a3b8;
@@ -346,7 +372,9 @@ const prefix = lang === "es" ? `${base}es/` : base;
     padding-block: var(--space-20);
     background-color: var(--color-bg);
   }
-  .uv-section--alt { background-color: var(--color-surface-alt); }
+  .uv-section--alt {
+    background-color: var(--color-surface-alt);
+  }
   .uv-section__title {
     font-size: var(--font-size-3xl);
     font-weight: 700;
@@ -360,7 +388,9 @@ const prefix = lang === "es" ? `${base}es/` : base;
     align-items: center;
   }
   @media (min-width: 1024px) {
-    .uv-formula { grid-template-columns: 1.2fr 1fr; }
+    .uv-formula {
+      grid-template-columns: 1.2fr 1fr;
+    }
   }
   .uv-formula__title {
     font-size: var(--font-size-3xl);
@@ -397,7 +427,9 @@ const prefix = lang === "es" ? `${base}es/` : base;
     font-style: italic;
     flex-shrink: 0;
   }
-  .uv-formula__var-value { color: var(--color-text-light); }
+  .uv-formula__var-value {
+    color: var(--color-text-light);
+  }
   .uv-formula__equation {
     display: flex;
     flex-direction: column;
@@ -426,8 +458,12 @@ const prefix = lang === "es" ? `${base}es/` : base;
     font-weight: 700;
     font-style: italic;
   }
-  .uv-formula__eq-num { color: #60a5fa; }
-  .uv-formula__eq-den { color: #94a3b8; }
+  .uv-formula__eq-num {
+    color: #60a5fa;
+  }
+  .uv-formula__eq-den {
+    color: #94a3b8;
+  }
   .uv-formula__eq-bar {
     width: 2.5rem;
     height: 2px;
@@ -444,7 +480,9 @@ const prefix = lang === "es" ? `${base}es/` : base;
     gap: var(--space-6);
   }
   @media (min-width: 768px) {
-    .uv-lambda-grid { grid-template-columns: repeat(3, 1fr); }
+    .uv-lambda-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
   .uv-lambda-card {
     background-color: var(--color-surface);
@@ -453,7 +491,9 @@ const prefix = lang === "es" ? `${base}es/` : base;
     padding: var(--space-8);
     text-align: center;
     box-shadow: var(--shadow-sm);
-    transition: box-shadow var(--transition-base), transform var(--transition-base);
+    transition:
+      box-shadow var(--transition-base),
+      transform var(--transition-base);
   }
   .uv-lambda-card:hover {
     box-shadow: var(--shadow-lg);
@@ -467,9 +507,18 @@ const prefix = lang === "es" ? `${base}es/` : base;
     border-radius: var(--radius-full);
     margin-bottom: var(--space-4);
   }
-  .uv-lambda-card--pir .uv-lambda-card__badge { background-color: #dbeafe; color: var(--color-primary); }
-  .uv-lambda-card--pur .uv-lambda-card__badge { background-color: #dcfce7; color: #16a34a; }
-  .uv-lambda-card--mw  .uv-lambda-card__badge { background-color: #ffedd5; color: var(--color-accent-orange); }
+  .uv-lambda-card--pir .uv-lambda-card__badge {
+    background-color: #dbeafe;
+    color: var(--color-primary);
+  }
+  .uv-lambda-card--pur .uv-lambda-card__badge {
+    background-color: #dcfce7;
+    color: #16a34a;
+  }
+  .uv-lambda-card--mw .uv-lambda-card__badge {
+    background-color: #ffedd5;
+    color: var(--color-accent-orange);
+  }
   .uv-lambda-card__value {
     font-size: var(--font-size-3xl);
     font-weight: 800;
@@ -500,7 +549,10 @@ const prefix = lang === "es" ? `${base}es/` : base;
     box-shadow: var(--shadow-md);
   }
   @media (min-width: 768px) {
-    .uv-calc { grid-template-columns: 1fr 1fr; align-items: start; }
+    .uv-calc {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
   }
   .uv-calc__form {
     display: flex;
@@ -528,11 +580,25 @@ const prefix = lang === "es" ? `${base}es/` : base;
     background-color: var(--color-bg);
     outline: none;
     font-family: var(--font-sans);
-    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+    transition:
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
+    width: 100%;
   }
+
   .uv-calc__input:focus {
     border-color: var(--color-primary);
     box-shadow: 0 0 0 3px rgb(37 99 235 / 0.1);
+  }
+
+  select.uv-calc__input {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: var(--space-10);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-3) center;
+    cursor: pointer;
   }
   .uv-calc__btn {
     display: flex;
@@ -547,7 +613,9 @@ const prefix = lang === "es" ? `${base}es/` : base;
     border-radius: var(--radius-md);
     border: none;
     cursor: pointer;
-    transition: background-color var(--transition-base), transform var(--transition-fast);
+    transition:
+      background-color var(--transition-base),
+      transform var(--transition-fast);
     font-family: var(--font-sans);
     margin-top: var(--space-2);
   }
@@ -565,7 +633,9 @@ const prefix = lang === "es" ? `${base}es/` : base;
     border-radius: var(--radius-xl);
     border: 2px dashed var(--color-border);
     min-height: 12rem;
-    transition: border-color var(--transition-base), background-color var(--transition-base);
+    transition:
+      border-color var(--transition-base),
+      background-color var(--transition-base);
   }
   .uv-calc__result--active {
     border-style: solid;
@@ -630,10 +700,24 @@ const prefix = lang === "es" ? `${base}es/` : base;
     font-weight: 700;
     padding: var(--space-4) var(--space-10);
     border-radius: var(--radius-md);
-    transition: background-color var(--transition-base), transform var(--transition-fast);
+    transition:
+      background-color var(--transition-base),
+      transform var(--transition-fast);
   }
   .uv-cta__btn:hover {
     background-color: #eff6ff;
     transform: translateY(-1px);
   }
+
+  .uv-calc__error {
+  font-size: var(--font-size-xs);
+  color: #ef4444;
+  margin-top: var(--space-1);
+  font-weight: 500;
+}
+
+.uv-calc__input--error {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgb(239 68 68 / 0.1);
+}
 </style>

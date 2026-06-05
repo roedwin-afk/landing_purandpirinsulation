@@ -93,11 +93,15 @@ const rows = [
               </div>
               <div class="mobile-card__value">
                 <span class="mobile-card__tag mobile-card__tag--pir">PIR</span>
-                <span class:list={[{ "cell--pir": row.highlight }]}>{row.pir}</span>
+                <span class:list={[{ "cell--pir": row.highlight }]}>
+                  {row.pir}
+                </span>
               </div>
               <div class="mobile-card__value">
                 <span class="mobile-card__tag mobile-card__tag--mw">MW</span>
-                <span class:list={[{ "cell--mw": row.highlight }]}>{row.mw}</span>
+                <span class:list={[{ "cell--mw": row.highlight }]}>
+                  {row.mw}
+                </span>
               </div>
             </div>
           </div>
@@ -283,5 +287,9 @@ const rows = [
   .mobile-card__tag--mw {
     background-color: #ffedd5;
     color: var(--color-accent-orange);
+  }
+
+  #technical {
+    scroll-margin-top: calc(var(--navbar-height) + 1rem);
   }
 </style>

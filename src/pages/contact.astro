@@ -8,16 +8,16 @@ const lang = getLang(Astro.url, base);
 const t = useTranslations(lang);
 
 const contact = {
-  email: "info@panelforcoldroom.com",
+  email: "ventas@mequipo.com",
   phone: "+52 55 9990 3546",
   phoneHref: "tel:+525599903546",
-  address: "Avenida Presidente Masaryk No. 61, Int. 901, Polanco V Sección, C.P. 11560, Miguel Hidalgo, Mexico City, Mexico",
+  address:
+    "Avenida Presidente Masaryk No. 61, Int. 901, Polanco V Sección, C.P. 11560, Miguel Hidalgo, Mexico City, Mexico",
   mapsUrl: "https://maps.google.com/?cid=15759084979067732314",
 };
 ---
 
 <BaseLayout t={t} lang={lang}>
-
   <main>
     <!-- Page Header -->
     <div class="contact-hero">
@@ -30,9 +30,11 @@ const contact = {
           {lang === "es" ? "Contacto" : "Contact Us"}
         </h1>
         <p class="contact-hero__desc">
-          {lang === "es"
-            ? "Solicite una consulta técnica, ficha de datos o análisis de valor U para su proyecto."
-            : "Request a technical consultation, data sheet, or U-Value analysis for your project."}
+          {
+            lang === "es"
+              ? "Solicite una consulta técnica, ficha de datos o análisis de valor U para su proyecto."
+              : "Request a technical consultation, data sheet, or U-Value analysis for your project."
+          }
         </p>
       </div>
     </div>
@@ -40,10 +42,8 @@ const contact = {
     <!-- Contact Content -->
     <section class="contact-section">
       <div class="container contact-section__inner">
-
         <!-- Left: Info + Map -->
         <div class="contact-info">
-
           <!-- Info cards -->
           <div class="contact-cards">
             <a href={`mailto:${contact.email}`} class="contact-card">
@@ -68,7 +68,12 @@ const contact = {
               </div>
             </a>
 
-            <a href={contact.mapsUrl} target="_blank" rel="noopener" class="contact-card">
+            <a
+              href={contact.mapsUrl}
+              target="_blank"
+              rel="noopener"
+              class="contact-card"
+            >
               <div class="contact-card__icon contact-card__icon--orange">
                 <MapPin size={20} />
               </div>
@@ -89,27 +94,28 @@ const contact = {
                   {lang === "es" ? "Horario" : "Business Hours"}
                 </span>
                 <span class="contact-card__value">
-                  {lang === "es"
-                    ? "Lun–Vie: 9:00 – 18:00 (GMT-6)"
-                    : "Mon–Fri: 9:00 AM – 6:00 PM (GMT-6)"}
+                  {
+                    lang === "es"
+                      ? "Lun–Vie: 9:00 – 18:00 (GMT-6)"
+                      : "Mon–Fri: 9:00 AM – 6:00 PM (GMT-6)"
+                  }
                 </span>
               </div>
             </div>
           </div>
 
           <!-- Map -->
-          <div class="contact-map">
+          <!-- Reemplaza el div .contact-map existente -->
+          <div class="contact-map" style="position: relative; z-index: 0;">
             <div id="contact-map" class="contact-map__canvas"></div>
-            
-            <a  href={contact.mapsUrl}
-              target="_blank"
-              rel="noopener"
-              class="contact-map__link"
-            >
-              {lang === "es" ? "Abrir en Google Maps →" : "Open in Google Maps →"}
+            <a href={contact.mapsUrl} ...>
+              {
+                lang === "es"
+                  ? "Abrir en Google Maps →"
+                  : "Open in Google Maps →"
+              }
             </a>
           </div>
-
         </div>
 
         <!-- Right: Zoho Form -->
@@ -119,9 +125,11 @@ const contact = {
               {lang === "es" ? "Solicitud de Cotización" : "Request a Quote"}
             </h2>
             <p class="contact-form-desc">
-              {lang === "es"
-                ? "Complete el formulario y nuestro equipo técnico le responderá en menos de 24 horas."
-                : "Fill out the form and our technical team will respond within 24 hours."}
+              {
+                lang === "es"
+                  ? "Complete el formulario y nuestro equipo técnico le responderá en menos de 24 horas."
+                  : "Fill out the form and our technical team will respond within 24 hours."
+              }
             </p>
           </div>
 
@@ -179,7 +187,9 @@ const contact = {
                 name="Email"
                 maxlength="255"
                 class="form-input"
-                placeholder={lang === "es" ? "correo@empresa.com" : "email@company.com"}
+                placeholder={lang === "es"
+                  ? "correo@empresa.com"
+                  : "email@company.com"}
                 required
               />
             </div>
@@ -202,7 +212,11 @@ const contact = {
             <!-- Message -->
             <div class="form-field">
               <label class="form-label" for="MultiLine">
-                {lang === "es" ? "Descripción del Proyecto" : "Project Description"}
+                {
+                  lang === "es"
+                    ? "Descripción del Proyecto"
+                    : "Project Description"
+                }
               </label>
               <textarea
                 id="MultiLine"
@@ -213,8 +227,7 @@ const contact = {
                 placeholder={lang === "es"
                   ? "Describa su proyecto, tipo de instalación, dimensiones aproximadas..."
                   : "Describe your project, installation type, approximate dimensions..."}
-                required
-              ></textarea>
+                required></textarea>
             </div>
 
             <button type="submit" class="form-submit">
@@ -222,22 +235,29 @@ const contact = {
             </button>
 
             <p class="form-note">
-              {lang === "es"
-                ? "Al enviar acepta nuestra política de privacidad. Respuesta garantizada en 24h."
-                : "By submitting you accept our privacy policy. Response guaranteed within 24h."}
+              {
+                lang === "es"
+                  ? "Al enviar acepta nuestra política de privacidad. Respuesta garantizada en 24h."
+                  : "By submitting you accept our privacy policy. Response guaranteed within 24h."
+              }
             </p>
           </form>
         </div>
-
       </div>
     </section>
   </main>
-
 </BaseLayout>
 
 <!-- Leaflet -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
-<script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin=""
+/>
+<script
+  is:inline
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin=""></script>
 <script is:inline>
   function initContactMap() {
     const mapEl = document.getElementById("contact-map");
@@ -253,7 +273,8 @@ const contact = {
     });
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      attribution:
+        '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       maxZoom: 19,
     }).addTo(map);
 
@@ -274,7 +295,9 @@ const contact = {
 
     L.marker([lat, lng], { icon })
       .addTo(map)
-      .bindPopup(`<strong>PUR&PIR Insulation</strong><br/><small>Polanco, Mexico City</small>`)
+      .bindPopup(
+        `<strong>PUR&PIR Insulation</strong><br/><small>Polanco, Mexico City</small>`,
+      )
       .openPopup();
   }
 
@@ -376,7 +399,8 @@ const contact = {
     padding: var(--space-4) var(--space-5);
     text-decoration: none;
     color: inherit;
-    transition: border-color var(--transition-base),
+    transition:
+      border-color var(--transition-base),
       box-shadow var(--transition-base),
       transform var(--transition-base);
   }
@@ -401,10 +425,22 @@ const contact = {
     justify-content: center;
   }
 
-  .contact-card__icon--blue   { background-color: #dbeafe; color: var(--color-primary); }
-  .contact-card__icon--green  { background-color: #dcfce7; color: #16a34a; }
-  .contact-card__icon--orange { background-color: #ffedd5; color: var(--color-accent-orange); }
-  .contact-card__icon--purple { background-color: #f3e8ff; color: #7c3aed; }
+  .contact-card__icon--blue {
+    background-color: #dbeafe;
+    color: var(--color-primary);
+  }
+  .contact-card__icon--green {
+    background-color: #dcfce7;
+    color: #16a34a;
+  }
+  .contact-card__icon--orange {
+    background-color: #ffedd5;
+    color: var(--color-accent-orange);
+  }
+  .contact-card__icon--purple {
+    background-color: #f3e8ff;
+    color: #7c3aed;
+  }
 
   .contact-card__label {
     display: block;
@@ -425,6 +461,11 @@ const contact = {
   }
 
   /* Map */
+  .contact-map {
+    position: relative;
+    z-index: 0;
+    isolation: isolate;   /* ← fuerza stacking context sin depender de z-index */
+}
   .contact-map__canvas {
     width: 100%;
     height: 280px;
@@ -519,7 +560,8 @@ const contact = {
     font-size: var(--font-size-sm);
     color: var(--color-text);
     background-color: var(--color-bg);
-    transition: border-color var(--transition-base),
+    transition:
+      border-color var(--transition-base),
       box-shadow var(--transition-base);
     outline: none;
     font-family: var(--font-sans);
@@ -547,7 +589,8 @@ const contact = {
     border: none;
     border-radius: var(--radius-md);
     cursor: pointer;
-    transition: background-color var(--transition-base),
+    transition:
+      background-color var(--transition-base),
       transform var(--transition-fast);
     margin-top: var(--space-2);
     font-family: var(--font-sans);
