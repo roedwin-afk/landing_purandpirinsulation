@@ -1,7 +1,7 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";  // ← dos puntos arriba
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { Mail, Phone, MapPin, Clock } from "lucide-astro";
-import { getLang, useTranslations } from "../../i18n/utils";  // ← dos puntos arriba
+import { getLang, useTranslations } from "../../i18n/utils";
 
 const base = import.meta.env.BASE_URL;
 const lang = getLang(Astro.url, base);
@@ -11,39 +11,65 @@ const contact = {
   email: "ventas@mequipo.com",
   phone: "+52 55 9990 3546",
   phoneHref: "tel:+525599903546",
-  address: "Avenida Presidente Masaryk No. 61, Int. 901, Polanco V Sección, C.P. 11560, Miguel Hidalgo, Mexico City, Mexico",
+  address:
+    "Avenida Presidente Masaryk No. 61, Int. 901, Polanco V Sección, C.P. 11560, Miguel Hidalgo, Mexico City, Mexico",
   mapsUrl: "https://maps.google.com/?cid=15759084979067732314",
 };
 ---
 
 <BaseLayout t={t} lang={lang}>
-
   <main>
     <!-- Page Header -->
     <div class="contact-hero">
       <div class="container contact-hero__inner">
-        <div class="contact-hero__eyebrow">
-          <Mail size={14} />
-          {lang === "es" ? "Estamos aquí para ayudarle" : "We are here to help"}
+        <!-- Texto izquierdo -->
+        <div class="contact-hero__text">
+          <div class="contact-hero__eyebrow">
+            <Mail size={14} />
+            {
+              lang === "es"
+                ? "Estamos aquí para ayudarle"
+                : "We are here to help"
+            }
+          </div>
+          <h1 class="contact-hero__title">
+            {lang === "es" ? "Contacto" : "Contact Us"}
+          </h1>
+          <p class="contact-hero__desc">
+            {
+              lang === "es"
+                ? "Solicite una consulta técnica, ficha de datos o análisis de valor U para su proyecto."
+                : "Request a technical consultation, data sheet, or U-Value analysis for your project."
+            }
+          </p>
         </div>
-        <h1 class="contact-hero__title">
-          {lang === "es" ? "Contacto" : "Contact Us"}
-        </h1>
-        <p class="contact-hero__desc">
-          {lang === "es"
-            ? "Solicite una consulta técnica, ficha de datos o análisis de valor U para su proyecto."
-            : "Request a technical consultation, data sheet, or U-Value analysis for your project."}
-        </p>
+
+        <!-- Sobre animado -->
+        <div class="contact-hero__visual">
+          <div class="letter-image">
+            <div class="animated-mail">
+              <div class="back-fold"></div>
+              <div class="letter">
+                <div class="letter-border"></div>
+                <div class="letter-title"></div>
+                <div class="letter-context"></div>
+                <div class="letter-stamp"></div>
+              </div>
+              <div class="top-fold"></div>
+              <div class="body"></div>
+              <div class="left-fold"></div>
+            </div>
+            <div class="shadow"></div>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Contact Content -->
     <section class="contact-section">
       <div class="container contact-section__inner">
-
         <!-- Left: Info + Map -->
         <div class="contact-info">
-
           <!-- Info cards -->
           <div class="contact-cards">
             <a href={`mailto:${contact.email}`} class="contact-card">
@@ -68,7 +94,12 @@ const contact = {
               </div>
             </a>
 
-            <a href={contact.mapsUrl} target="_blank" rel="noopener" class="contact-card">
+            <a
+              href={contact.mapsUrl}
+              target="_blank"
+              rel="noopener"
+              class="contact-card"
+            >
               <div class="contact-card__icon contact-card__icon--orange">
                 <MapPin size={20} />
               </div>
@@ -89,27 +120,28 @@ const contact = {
                   {lang === "es" ? "Horario" : "Business Hours"}
                 </span>
                 <span class="contact-card__value">
-                  {lang === "es"
-                    ? "Lun–Vie: 9:00 – 18:00 (GMT-6)"
-                    : "Mon–Fri: 9:00 AM – 6:00 PM (GMT-6)"}
+                  {
+                    lang === "es"
+                      ? "Lun–Vie: 9:00 – 18:00 (GMT-6)"
+                      : "Mon–Fri: 9:00 AM – 6:00 PM (GMT-6)"
+                  }
                 </span>
               </div>
             </div>
           </div>
 
           <!-- Map -->
-          <div class="contact-map">
+          <!-- Reemplaza el div .contact-map existente -->
+          <div class="contact-map" style="position: relative; z-index: 0;">
             <div id="contact-map" class="contact-map__canvas"></div>
-            
-            <a  href={contact.mapsUrl}
-              target="_blank"
-              rel="noopener"
-              class="contact-map__link"
-            >
-              {lang === "es" ? "Abrir en Google Maps →" : "Open in Google Maps →"}
+            <a href={contact.mapsUrl} ...>
+              {
+                lang === "es"
+                  ? "Abrir en Google Maps →"
+                  : "Open in Google Maps →"
+              }
             </a>
           </div>
-
         </div>
 
         <!-- Right: Zoho Form -->
@@ -119,9 +151,11 @@ const contact = {
               {lang === "es" ? "Solicitud de Cotización" : "Request a Quote"}
             </h2>
             <p class="contact-form-desc">
-              {lang === "es"
-                ? "Complete el formulario y nuestro equipo técnico le responderá en menos de 24 horas."
-                : "Fill out the form and our technical team will respond within 24 hours."}
+              {
+                lang === "es"
+                  ? "Complete el formulario y nuestro equipo técnico le responderá en menos de 24 horas."
+                  : "Fill out the form and our technical team will respond within 24 hours."
+              }
             </p>
           </div>
 
@@ -179,7 +213,9 @@ const contact = {
                 name="Email"
                 maxlength="255"
                 class="form-input"
-                placeholder={lang === "es" ? "correo@empresa.com" : "email@company.com"}
+                placeholder={lang === "es"
+                  ? "correo@empresa.com"
+                  : "email@company.com"}
                 required
               />
             </div>
@@ -202,7 +238,11 @@ const contact = {
             <!-- Message -->
             <div class="form-field">
               <label class="form-label" for="MultiLine">
-                {lang === "es" ? "Descripción del Proyecto" : "Project Description"}
+                {
+                  lang === "es"
+                    ? "Descripción del Proyecto"
+                    : "Project Description"
+                }
               </label>
               <textarea
                 id="MultiLine"
@@ -213,8 +253,7 @@ const contact = {
                 placeholder={lang === "es"
                   ? "Describa su proyecto, tipo de instalación, dimensiones aproximadas..."
                   : "Describe your project, installation type, approximate dimensions..."}
-                required
-              ></textarea>
+                required></textarea>
             </div>
 
             <button type="submit" class="form-submit">
@@ -222,22 +261,29 @@ const contact = {
             </button>
 
             <p class="form-note">
-              {lang === "es"
-                ? "Al enviar acepta nuestra política de privacidad. Respuesta garantizada en 24h."
-                : "By submitting you accept our privacy policy. Response guaranteed within 24h."}
+              {
+                lang === "es"
+                  ? "Al enviar acepta nuestra política de privacidad. Respuesta garantizada en 24h."
+                  : "By submitting you accept our privacy policy. Response guaranteed within 24h."
+              }
             </p>
           </form>
         </div>
-
       </div>
     </section>
   </main>
-
 </BaseLayout>
 
 <!-- Leaflet -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
-<script is:inline src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  crossorigin=""
+/>
+<script
+  is:inline
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  crossorigin=""></script>
 <script is:inline>
   function initContactMap() {
     const mapEl = document.getElementById("contact-map");
@@ -253,7 +299,8 @@ const contact = {
     });
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      attribution:
+        '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       maxZoom: 19,
     }).addTo(map);
 
@@ -274,7 +321,9 @@ const contact = {
 
     L.marker([lat, lng], { icon })
       .addTo(map)
-      .bindPopup(`<strong>PUR&PIR Insulation</strong><br/><small>Polanco, Mexico City</small>`)
+      .bindPopup(
+        `<strong>PUR&PIR Insulation</strong><br/><small>Polanco, Mexico City</small>`,
+      )
       .openPopup();
   }
 
@@ -306,7 +355,33 @@ const contact = {
   .contact-hero__inner {
     position: relative;
     z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .contact-hero__inner {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .contact-hero__text {
     max-width: 40rem;
+  }
+
+  .contact-hero__visual {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .contact-hero__visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 260px;
+    }
   }
 
   .contact-hero__eyebrow {
@@ -332,6 +407,145 @@ const contact = {
     font-size: var(--font-size-lg);
     color: #94a3b8;
     line-height: 1.7;
+  }
+
+  /* ── Sobre animado ── */
+  .letter-image {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+  }
+
+  .animated-mail {
+    position: absolute;
+    height: 150px;
+    width: 200px;
+    transition: .4s;
+  }
+
+  .animated-mail .body {
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 100px 200px;
+    border-color: transparent transparent #1d4ed8 transparent;
+    z-index: 2;
+  }
+
+  .animated-mail .top-fold {
+    position: absolute;
+    top: 50px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 50px 100px 0 100px;
+    transform-origin: 50% 0%;
+    transition: transform .4s .4s, z-index .2s .4s;
+    border-color: #1e40af transparent transparent transparent;
+    z-index: 2;
+  }
+
+  .animated-mail .back-fold {
+    position: absolute;
+    bottom: 0;
+    width: 200px;
+    height: 100px;
+    background: #1e40af;
+    z-index: 0;
+  }
+
+  .animated-mail .left-fold {
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 50px 0 50px 100px;
+    border-color: transparent transparent transparent #2563eb;
+    z-index: 2;
+  }
+
+  .animated-mail .letter {
+    left: 20px;
+    bottom: 0px;
+    position: absolute;
+    width: 160px;
+    height: 60px;
+    background: white;
+    z-index: 1;
+    overflow: hidden;
+    transition: .4s .2s;
+  }
+
+  .animated-mail .letter .letter-border {
+    height: 10px;
+    width: 100%;
+    background: repeating-linear-gradient(
+      -45deg,
+      #3b82f6,
+      #3b82f6 8px,
+      transparent 8px,
+      transparent 18px
+    );
+  }
+
+  .animated-mail .letter .letter-title {
+    margin-top: 10px;
+    margin-left: 5px;
+    height: 10px;
+    width: 40%;
+    background: #3b82f6;
+  }
+
+  .animated-mail .letter .letter-context {
+    margin-top: 10px;
+    margin-left: 5px;
+    height: 10px;
+    width: 20%;
+    background: #3b82f6;
+  }
+
+  .animated-mail .letter .letter-stamp {
+    margin-top: 30px;
+    margin-left: 120px;
+    border-radius: 100%;
+    height: 30px;
+    width: 30px;
+    background: #3b82f6;
+    opacity: 0.3;
+  }
+
+  .shadow {
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    width: 400px;
+    height: 30px;
+    transition: .4s;
+    transform: translateX(-50%);
+    border-radius: 100%;
+    background: radial-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.0), rgba(0,0,0,0.0));
+  }
+
+  .letter-image:hover .animated-mail {
+    transform: translateY(50px);
+  }
+
+  .letter-image:hover .animated-mail .top-fold {
+    transition: transform .4s, z-index .2s;
+    transform: rotateX(180deg);
+    z-index: 0;
+  }
+
+  .letter-image:hover .animated-mail .letter {
+    height: 180px;
+  }
+
+  .letter-image:hover .shadow {
+    width: 250px;
   }
 
   /* Section */
@@ -376,7 +590,8 @@ const contact = {
     padding: var(--space-4) var(--space-5);
     text-decoration: none;
     color: inherit;
-    transition: border-color var(--transition-base),
+    transition:
+      border-color var(--transition-base),
       box-shadow var(--transition-base),
       transform var(--transition-base);
   }
@@ -425,6 +640,12 @@ const contact = {
   }
 
   /* Map */
+  .contact-map {
+    position: relative;
+    z-index: 0;
+    isolation: isolate;
+  }
+
   .contact-map__canvas {
     width: 100%;
     height: 280px;
@@ -477,7 +698,6 @@ const contact = {
     border-bottom: 1px solid var(--color-border);
   }
 
-  /* Zoho form fields */
   .zoho-form {
     display: flex;
     flex-direction: column;
@@ -519,7 +739,8 @@ const contact = {
     font-size: var(--font-size-sm);
     color: var(--color-text);
     background-color: var(--color-bg);
-    transition: border-color var(--transition-base),
+    transition:
+      border-color var(--transition-base),
       box-shadow var(--transition-base);
     outline: none;
     font-family: var(--font-sans);
@@ -547,7 +768,8 @@ const contact = {
     border: none;
     border-radius: var(--radius-md);
     cursor: pointer;
-    transition: background-color var(--transition-base),
+    transition:
+      background-color var(--transition-base),
       transform var(--transition-fast);
     margin-top: var(--space-2);
     font-family: var(--font-sans);

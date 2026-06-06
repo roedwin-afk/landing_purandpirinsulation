@@ -416,7 +416,7 @@ const currentYear = new Date().getFullYear();
   }
   .footer__nav-link {
     display: block;
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-sm);
     padding-block: var(--space-3);
     color: #e2e8f0;
     text-decoration: none;
@@ -488,11 +488,12 @@ const currentYear = new Date().getFullYear();
   .footer__social:hover {
     color: #ffffff;
   }
+
   .footer__link,
   .footer__nav-link,
   .footer__bottom-link {
     position: relative;
-    display: inline-block;
+    display: block; /* ← era inline-block */
   }
 
   .footer__link::after,
@@ -521,12 +522,12 @@ const currentYear = new Date().getFullYear();
     position: relative;
     display: inline-block;
     color: #e2e8f0;
-  font-size: var(--font-size-sm); 
+    font-size: var(--font-size-sm);
   }
 
   :global(.footer .nav-link:hover) {
-  color: #ffffff;        /* ← agrega este bloque */
-}
+    color: #ffffff; /* ← agrega este bloque */
+  }
 
   :global(.footer .nav-link::after) {
     content: "";
