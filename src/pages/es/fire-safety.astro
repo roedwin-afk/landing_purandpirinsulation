@@ -5,10 +5,10 @@ import {
   ShieldCheck,
   BadgeCheck,
   FlameKindling,
-  TriangleAlert,
+  Info
 } from "lucide-astro";
 import { Image } from "astro:assets";
-import pirVsPurImg from "../../assets/images/pir-vs-pur-carbonization.png";
+import pirVsPurImg from "../../assets/images/pir-vs-pur-carbonizacion.png";
 
 const base = import.meta.env.BASE_URL;
 const lang = getLang(Astro.url, base);
@@ -38,7 +38,7 @@ const prefix = lang === "es" ? `${base}es/` : base;
           <div class="fs-hero__badge-group">
             <div class="fs-hero__badge fs-hero__badge--a1">
               <span class="fs-hero__badge-class">A1</span>
-              <span class="fs-hero__badge-label">Mineral Wool</span>
+              <span class="fs-hero__badge-label">Lana de roca</span>
             </div>
             <div class="fs-hero__badge fs-hero__badge--b">
               <span class="fs-hero__badge-class">B-s1,d0</span>
@@ -46,7 +46,7 @@ const prefix = lang === "es" ? `${base}es/` : base;
             </div>
             <div class="fs-hero__badge fs-hero__badge--fm">
               <span class="fs-hero__badge-class">FM 4880</span>
-              <span class="fs-hero__badge-label">Certified</span>
+              <span class="fs-hero__badge-label">Certificación</span>
             </div>
           </div>
         </div>
@@ -145,7 +145,7 @@ const prefix = lang === "es" ? `${base}es/` : base;
               {
                 tp.fm.tests.map((test) => (
                   <li>
-                    <TriangleAlert size={14} /> {test}
+                    <Info size={14} /> {test}
                   </li>
                 ))
               }
