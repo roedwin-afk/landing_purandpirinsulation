@@ -7,6 +7,7 @@ export const es: TranslationKeys = {
     uvalue: "Calculadora de Valor U",
     getQuote: "Solicitar Cotización Técnica",
     blog: "Blog",
+    faq: "FAQ",
   },
   hero: {
     title: "Aislamiento Térmico de Alto Rendimiento para",
@@ -279,6 +280,69 @@ export const es: TranslationKeys = {
         description: "Nuestro equipo de ingeniería proporciona cálculos detallados de transferencia de calor para las dimensiones específicas de su proyecto y zona climática.",
         btn: "Solicitar Análisis de Valor U",
       },
+    },
+  },
+  faq: {
+    meta: {
+      title: "FAQ: Paneles PUR vs PIR vs Lana Mineral | Respuestas Técnicas",
+      description:
+        "Respuestas a las preguntas técnicas más comunes sobre núcleos de paneles sándwich PUR, PIR y Lana Mineral: conductividad térmica, resistencia al fuego, espesores, costos y normativa mexicana de aislamiento.",
+    },
+    hero: {
+      eyebrow: "Preguntas Frecuentes",
+      title: "Preguntas",
+      titleAccent: "Frecuentes",
+      description:
+        "Respuestas técnicas a las preguntas más comunes sobre núcleos de aislamiento PUR, PIR y Lana Mineral para paneles sándwich industriales — desempeño térmico, seguridad contra incendios, espesores y cumplimiento normativo en México.",
+    },
+    items: [
+      {
+        question: "¿Cuál es la diferencia entre paneles de aislamiento PUR y PIR?",
+        answer:
+          "Los paneles PIR utilizan un núcleo de poliisocianurato modificado químicamente con estructura reticulada, lo que les da una conductividad térmica de 0.020-0.022 W/m·K y una clasificación de fuego Euroclase B-s1,d0, mientras que los paneles PUR estándar tienen una conductividad térmica de aproximadamente 0.022 W/m·K y una clasificación de fuego menor, Clase C/D. El PIR cuesta más pero requiere menor espesor para alcanzar el mismo nivel de aislamiento y se comporta significativamente mejor ante exposición al fuego gracias a su capa protectora carbonizada.",
+      },
+      {
+        question: "¿Qué núcleo es mejor para cuartos fríos, PUR o PIR?",
+        answer:
+          "Los paneles PUR son la opción estándar para cuartos fríos y almacenamiento refrigerado en general por su menor costo y conductividad térmica cercana a 0.022 W/m·K, mientras que los paneles PIR se recomiendan para cuartos de congelación e instalaciones de cadena de frío con requisitos más estrictos de seguridad contra incendios gracias a su clasificación B-s1,d0. El equipo técnico de MEQUIPO (ventas@mequipo.com, +52 55 9990 3546) puede revisar la temperatura objetivo y los requisitos de aseguradora para recomendar el núcleo adecuado.",
+      },
+      {
+        question: "¿Qué clasificación contra incendio tienen los paneles sándwich PIR?",
+        answer:
+          "Los paneles sándwich PIR típicamente alcanzan una clasificación Euroclase B-s1,d0 bajo la norma EN 13501-1, lo que significa producción de humo muy limitada y sin goteo de partículas en llamas. También existen paneles que cumplen con los requisitos FM 4880 para proyectos que dependen de aseguradoras, ofreciendo una respuesta al fuego significativamente mejor que la clasificación estándar Clase C/D del PUR.",
+      },
+      {
+        question: "¿Es la lana mineral más resistente al fuego que los paneles PIR?",
+        answer:
+          "Sí — los núcleos de lana mineral (lana de roca) están clasificados A1 no combustible bajo la norma EN 13501-1, la clasificación de fuego más alta posible, en comparación con el B-s1,d0 del PIR. La lana mineral es requerida en plantas químicas, hospitales y otras instalaciones donde las aseguradoras o los códigos locales exigen un núcleo completamente no combustible, mientras que el PIR es suficiente para la mayoría de aplicaciones industriales de techado y cuartos fríos.",
+      },
+      {
+        question: "¿Qué espesor de panel necesito para techado industrial o cuartos fríos?",
+        answer:
+          "El espesor del panel depende del material del núcleo y del valor U objetivo: los paneles PIR suelen ir de 40-100 mm para techado industrial y 100-150+ mm para cuartos fríos, mientras que la lana mineral necesita aproximadamente 85-95 mm para igualar el aislamiento de un panel PIR de 50 mm debido a su mayor conductividad térmica (0.035-0.040 W/m·K). Utilice nuestra Calculadora de Valor U para dimensionar el espesor exacto según su zona climática y transmitancia objetivo.",
+      },
+      {
+        question: "¿Qué tan más costoso es el PIR comparado con el PUR?",
+        answer:
+          "Los paneles PIR generalmente cuestan más que los paneles PUR debido al mayor contenido de isocianato y al catalizador adicional utilizado en su fabricación, aunque la diferencia exacta varía según el proveedor, el espesor del panel y el recubrimiento de acero. Como el precio es específico de cada proyecto, solicite una cotización técnica a MEQUIPO (ventas@mequipo.com) con sus dimensiones y aplicación para obtener una comparación precisa.",
+      },
+      {
+        question: "¿Qué normativa mexicana aplica a los paneles sándwich aislados?",
+        answer:
+          "En México, la NOM-018-ENER-2011 establece los métodos de prueba y características para materiales de aislamiento térmico, incluyendo conductividad térmica, densidad y absorción de humedad, mientras que los requisitos estructurales para edificaciones con recubrimiento de panel caen bajo códigos locales como el RCDF y sus normas técnicas complementarias (NTC-2017) en la Ciudad de México. La clasificación contra incendio generalmente se referencia contra la EN 13501-1 (Euroclase) o FM 4880, ya que México aún no cuenta con una norma de reacción al fuego dedicada específicamente a paneles sándwich aislados — confirme los requisitos vigentes con la autoridad de construcción local.",
+      },
+      {
+        question:
+          "¿Cuál es la diferencia de desempeño acústico entre paneles PIR y lana mineral?",
+        answer:
+          "Los paneles de lana mineral ofrecen un aislamiento acústico sustancialmente mejor, absorbiendo ruido aéreo alrededor de 30-35 dB (Rw) gracias a su estructura fibrosa, en comparación con aproximadamente 24-30 dB para los paneles PIR. Esto hace de la lana mineral el núcleo preferido para cuartos de generadores, encierros de compresores y edificios industriales cerca de zonas sensibles al ruido, mientras que el PIR sigue siendo el estándar para aplicaciones donde prioriza el desempeño térmico, como cuartos fríos.",
+      },
+    ],
+    cta: {
+      title: "¿Aún tiene preguntas técnicas?",
+      description:
+        "Nuestro equipo de ingeniería puede revisar la zona climática de su proyecto, los requisitos de seguridad contra incendios y el valor U objetivo para recomendar el núcleo de aislamiento adecuado.",
+      btn: "Solicitar Consulta Técnica",
     },
   },
 };

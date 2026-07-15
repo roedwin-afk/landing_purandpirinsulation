@@ -1,0 +1,263 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { Plus, HelpCircle, ArrowRight } from "lucide-astro";
+import { getLang, useTranslations } from "../../i18n/utils";
+
+const base = import.meta.env.BASE_URL;
+const lang = getLang(Astro.url, base);
+const t = useTranslations(lang);
+
+const contact = {
+  email: "ventas@mequipo.com",
+  phone: "+52 55 9990 3546",
+};
+
+// JSON-LD para GEO (Generative Engine Optimization) — mismo patrón usado
+// en la red de landings PROMAICA para citación en motores de búsqueda AI.
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: t.faq.items.map((item: { question: string; answer: string }) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+---
+
+<BaseLayout
+  t={t}
+  lang={lang}
+>
+  <!-- JSON-LD FAQPage -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <main>
+    <!-- FAQ Hero -->
+    <div class="faq-hero">
+      <div class="container faq-hero__inner">
+        <div class="faq-hero__eyebrow">
+          <HelpCircle size={14} />
+          {t.faq.hero.eyebrow}
+        </div>
+        <h1 class="faq-hero__title">
+          {t.faq.hero.title}
+          <span class="faq-hero__title-accent">{t.faq.hero.titleAccent}</span>
+        </h1>
+        <p class="faq-hero__desc">{t.faq.hero.description}</p>
+      </div>
+    </div>
+
+    <!-- FAQ List -->
+    <section class="faq-section">
+      <div class="container faq-section__inner">
+        <div class="faq-list">
+          {
+            t.faq.items.map((item: { question: string; answer: string }, index: number) => (
+              <details class="faq-item" open={index === 0}>
+                <summary class="faq-item__summary">
+                  <span class="faq-item__question">{item.question}</span>
+                  <span class="faq-item__icon">
+                    <Plus size={18} />
+                  </span>
+                </summary>
+                <div class="faq-item__answer">
+                  <p>{item.answer}</p>
+                </div>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="faq-cta">
+      <div class="container faq-cta__inner">
+        <h2 class="faq-cta__title">{t.faq.cta.title}</h2>
+        <p class="faq-cta__desc">{t.faq.cta.description}</p>
+        <a href={`mailto:${contact.email}`} class="faq-cta__btn">
+          {t.faq.cta.btn}
+          <ArrowRight size={18} />
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  /* ─── Hero ──────────────────────────────────────────────── */
+  .faq-hero {
+    background: linear-gradient(
+      135deg,
+      var(--color-hero-bg-start) 0%,
+      var(--color-hero-bg-end) 100%
+    );
+    color: white;
+    padding-block: var(--space-16);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .faq-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .faq-hero__inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .faq-hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #60a5fa;
+    margin-bottom: var(--space-4);
+  }
+
+  .faq-hero__title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-4);
+  }
+
+  .faq-hero__title-accent {
+    color: #60a5fa;
+  }
+
+  .faq-hero__desc {
+    font-size: var(--font-size-lg);
+    color: #94a3b8;
+    line-height: 1.7;
+  }
+
+  /* ─── FAQ List ──────────────────────────────────────────── */
+  .faq-section {
+    padding-block: var(--space-20);
+    background-color: var(--color-bg);
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .faq-item {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition:
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
+  }
+
+  .faq-item[open] {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+  }
+
+  .faq-item__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--space-6);
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: var(--font-size-base);
+  }
+
+  .faq-item__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__question {
+    flex: 1;
+  }
+
+  .faq-item__icon {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius-full);
+    background-color: var(--color-primary-muted);
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-base);
+  }
+
+  .faq-item[open] .faq-item__icon {
+    transform: rotate(45deg);
+  }
+
+  .faq-item__answer {
+    padding: 0 var(--space-6) var(--space-5);
+    color: var(--color-text-light);
+    font-size: var(--font-size-sm);
+    line-height: 1.7;
+  }
+
+  /* ─── CTA ───────────────────────────────────────────────── */
+  .faq-cta {
+    background-color: var(--color-footer-bg);
+    color: white;
+    padding-block: var(--space-20);
+    text-align: center;
+  }
+
+
+  .faq-cta__title {
+    font-size: var(--font-size-3xl);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-4);
+  }
+
+  .faq-cta__desc {
+    color: #94a3b8;
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    margin-bottom: var(--space-8);
+  }
+
+  .faq-cta__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    background-color: var(--color-primary);
+    color: white;
+    font-weight: 700;
+    padding: var(--space-4) var(--space-8);
+    border-radius: var(--radius-md);
+    transition:
+      background-color var(--transition-base),
+      transform var(--transition-fast);
+  }
+
+  .faq-cta__btn:hover {
+    background-color: var(--color-primary-dark);
+    transform: translateY(-1px);
+  }
+</style>
